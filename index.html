@@ -4,187 +4,516 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>A.M. Marklund — Author</title>
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Caveat:wght@500;600&display=swap" rel="stylesheet">
-
 <style>
-:root{
-  --navy:#1b2030;
-  --terracotta-1:#d97a3f;
-  --terracotta-2:#a8461f;
-  --burgundy:#7c1f2c;
-  --cream:#f4ede2;
-  --cream-dim:#f4ede2cc;
-  --ink:#1a1610;
-  --gold:#c9a15a;
-  --line:rgba(244,237,226,0.18);
-}
+  :root{
+    --navy: #1b2030;
+    --navy-light: #262d42;
+    --terracotta-1: #d97a3f;
+    --terracotta-2: #a8461f;
+    --burgundy: #7c1f2c;
+    --cream: #f4ede2;
+    --cream-dim: #f4ede2cc;
+    --ink: #1a1610;
+    --gold: #c9a15a;
+    --line: rgba(244,237,226,0.18);
+  }
 
-*{margin:0;padding:0;box-sizing:border-box;}
+  *{ margin:0; padding:0; box-sizing:border-box; }
 
-body{
-  background:var(--cream);
-  color:var(--ink);
-  font-family:'EB Garamond', serif;
-}
+  body{
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'EB Garamond', serif;
+    -webkit-font-smoothing: antialiased;
+  }
 
-a{text-decoration:none;color:inherit;}
+  a{ color:inherit; text-decoration:none; }
 
-/* NAV */
-header.nav{
-  background:var(--navy);
-  color:var(--cream);
-  display:flex;
-  justify-content:space-between;
-  padding:20px 5vw;
-}
+  /* ---------- NAV ---------- */
+  header.nav{
+    background: var(--navy);
+    color: var(--cream);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding: 22px 5vw;
+    position: relative;
+    z-index: 10;
+  }
 
-.brand{
-  font-family:'Cormorant Garamond',serif;
-  letter-spacing:.25em;
-}
+  .brand{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    font-family:'Cormorant Garamond', serif;
+    font-size: 1.05rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+  }
 
-nav.links{
-  display:flex;
-  gap:30px;
-}
+  .brand svg{ width:34px; height:34px; flex-shrink:0; }
 
-/* HERO */
-section.hero{
-  background:linear-gradient(160deg,#e0904f,var(--terracotta-1),var(--terracotta-2));
-  padding:6vw;
-  display:grid;
-  grid-template-columns: minmax(220px,340px) 1fr;
-  gap:6vw;
-  align-items:center;
-}
+  nav.links{
+    display:flex;
+    gap: 38px;
+    font-size: 0.95rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-family: 'EB Garamond', serif;
+  }
 
-/* FIXED COVER */
-.cover-slot{
-  grid-column:1;
-  grid-row:1 / span 2;
-  aspect-ratio:2/3;
-  overflow:hidden;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  box-shadow:0 18px 40px rgba(0,0,0,.35);
-}
+  nav.links a{
+    opacity: 0.85;
+    border-bottom: 1px solid transparent;
+    padding-bottom: 4px;
+    transition: opacity .2s, border-color .2s;
+  }
+  nav.links a:hover, nav.links a:focus-visible{
+    opacity: 1;
+    border-color: var(--gold);
+  }
+  nav.links a.active{
+    border-color: var(--cream);
+  }
 
-.cover-slot img{
-  width:100%;
-  height:100%;
-  object-fit:contain;
-}
+  .nav-toggle{ display:none; }
 
-/* TEXT */
-.hero-main{text-align:center;}
+  /* ---------- HERO ---------- */
+  section.hero{
+    background: linear-gradient(160deg, #e0904f 0%, var(--terracotta-1) 35%, var(--terracotta-2) 78%, #8a3a1d 100%);
+    padding: 6vw 5vw 7vw;
+    display:grid;
+    grid-template-columns: minmax(220px, 340px) 1fr;
+    gap: 6vw;
+    align-items:center;
+    position: relative;
+    overflow:hidden;
+  }
 
-.title{
-  font-family:'Cormorant Garamond',serif;
-  font-size:clamp(2.5rem,5vw,4rem);
-}
+  .hero-copy-top{
+    grid-column: 2;
+    grid-row: 1;
+    text-align:center;
+    color: var(--cream);
+    font-style: italic;
+    font-size: 1.15rem;
+    letter-spacing: 0.02em;
+    line-height: 1.6;
+    margin-bottom: 0.5em;
+  }
 
-.title .accent{
-  display:block;
-  color:var(--burgundy);
-}
+  .cover-slot{
+    grid-column: 1;
+    grid-row: 1 / span 2;
+    aspect-ratio: 2/3;
+    border: 2px solid rgba(244,237,226,0.55);
+    border-radius: 2px;
+    background: repeating-linear-gradient(45deg, rgba(0,0,0,0.12) 0 12px, rgba(0,0,0,0.05) 12px 24px), #3a2418;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    color: var(--cream-dim);
+    padding: 20px;
+    box-shadow: 0 18px 40px rgba(0,0,0,0.35);
+  }
 
-/* BUTTON */
-.cta{
-  display:inline-block;
-  margin-top:20px;
-  padding:12px 25px;
-  background:#24402b;
-  color:white;
-}
+  .cover-slot .label{
+    font-family:'Caveat', cursive;
+    font-size: 1.9rem;
+    line-height:1.15;
+  }
+  .cover-slot .sub{
+    margin-top:14px;
+    font-size:0.75rem;
+    letter-spacing:0.15em;
+    text-transform:uppercase;
+    opacity:0.7;
+  }
 
-/* SOCIALS */
-.social-row{
-  display:flex;
-  justify-content:center;
-  gap:20px;
-}
-.social-row a{
-  width:40px;height:40px;
-  border:1px solid var(--line);
-  display:flex;align-items:center;justify-content:center;
-}
-.social-row svg{width:18px;height:18px;}
+  .hero-main{
+    grid-column: 2;
+    grid-row: 2;
+  }
 
+  .hero-main .title{
+    font-family:'Cormorant Garamond', serif;
+    font-weight:600;
+    color: var(--ink);
+    font-size: clamp(2.6rem, 5.6vw, 4.6rem);
+    line-height: 1.02;
+    text-align:center;
+    letter-spacing: 0.01em;
+  }
+  .hero-main .title .accent{
+    color: var(--burgundy);
+    display:block;
+  }
+
+  .vibes{
+    text-align:center;
+    margin-top: 2.6rem;
+  }
+  .vibes .vibes-label{
+    font-family:'Cormorant Garamond', serif;
+    font-size:1.4rem;
+    color: var(--cream);
+    margin-bottom: 0.9rem;
+  }
+  .vibes ul{
+    list-style:none;
+    color: var(--cream-dim);
+    font-size: 0.98rem;
+    line-height: 1.9;
+  }
+  .vibes .and{
+    font-weight:600;
+    letter-spacing:0.08em;
+    color: var(--cream);
+  }
+  .vibes .divider{
+    height:1px; width:60px;
+    background: rgba(244,237,226,0.4);
+    margin: 1.4rem auto;
+  }
+
+  .release{
+    text-align:center;
+    margin-top: 2.6rem;
+    color: var(--ink);
+  }
+  .release .when{
+    font-family:'Cormorant Garamond', serif;
+    font-size: clamp(1.5rem, 2.4vw, 2rem);
+  }
+  .release .formats{
+    margin-top: 0.6rem;
+    font-size: 0.8rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--cream-dim);
+  }
+
+  .cta-row{
+    display:flex;
+    justify-content:center;
+    gap: 16px;
+    margin-top: 2.2rem;
+    flex-wrap: wrap;
+  }
+
+  .cta{
+    padding: 12px 26px;
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    border: 1px solid transparent;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+  .cta:hover{ transform: translateY(-1px); }
+  .cta-primary{
+    background: var(--burgundy);
+    color: var(--cream);
+  }
+  .cta-secondary{
+    background: #24402b;
+    color: var(--cream);
+  }
+
+  /* ---------- NEWSLETTER ---------- */
+  section.newsletter-wrap{
+    background: var(--navy);
+    padding: 5vw 5vw 4vw;
+  }
+
+  .newsletter-card-outer{
+    max-width: 900px;
+    margin: 0 auto;
+    border-radius: 4px;
+    overflow:hidden;
+    position: relative;
+    background: linear-gradient(135deg, #d97a5a, #b04a3a 55%, #6d2b3a);
+    padding: 3px;
+  }
+
+  .newsletter-card{
+    background: var(--cream);
+    padding: 3.2rem 3rem;
+    text-align:center;
+  }
+
+  .newsletter-card h2{
+    font-family:'Cormorant Garamond', serif;
+    font-weight:600;
+    font-size: 1.9rem;
+    margin-bottom: 0.9rem;
+  }
+
+  .newsletter-card p.desc{
+    max-width: 480px;
+    margin: 0 auto 1.8rem;
+    color: #4a4238;
+    line-height: 1.55;
+    font-size: 0.98rem;
+  }
+
+  .field{
+    max-width: 420px;
+    margin: 0 auto 14px;
+  }
+  .field input{
+    width:100%;
+    padding: 12px 14px;
+    border: 1px solid #cfc3af;
+    border-radius: 2px;
+    font-family:'EB Garamond', serif;
+    font-size: 0.95rem;
+    background: #fff;
+  }
+  .field input::placeholder{ color:#9b9284; letter-spacing:0.04em; }
+  .field .hint{
+    text-align:left;
+    font-size: 0.72rem;
+    color: #8a8175;
+    margin-top: 6px;
+  }
+
+  .subscribe-btn{
+    margin-top: 6px;
+    background: var(--ink);
+    color: var(--cream);
+    border:none;
+    padding: 12px 34px;
+    font-size: 0.8rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    cursor:pointer;
+    border-radius: 2px;
+  }
+
+  /* ---------- CONTACT ---------- */
+  section.contact{
+    background: var(--navy);
+    color: var(--cream);
+    text-align:center;
+    padding: 4.5vw 5vw 2vw;
+  }
+  .contact h2{
+    font-family:'Cormorant Garamond', serif;
+    font-weight:600;
+    font-size: 1.9rem;
+    margin-bottom: 1.4rem;
+  }
+  .contact p{
+    max-width: 560px;
+    margin: 0 auto 0.4rem;
+    color: var(--cream-dim);
+    line-height: 1.6;
+    font-size: 0.98rem;
+  }
+  .contact a.email{
+    color: var(--gold);
+    border-bottom: 1px solid transparent;
+  }
+  .contact a.email:hover{ border-color: var(--gold); }
+
+  .contact .block{ margin-bottom: 1.8rem; }
+
+  .follow{
+    margin-top: 2.2rem;
+  }
+  .follow h3{
+    font-family:'Cormorant Garamond', serif;
+    font-weight:600;
+    font-size: 1.6rem;
+    margin-bottom: 1rem;
+  }
+  .social-row{
+    display:flex;
+    justify-content:center;
+    gap: 22px;
+    margin-bottom: 3rem;
+  }
+  .social-row a{
+    width:40px; height:40px;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    opacity: 0.8;
+    transition: opacity .2s, border-color .2s;
+  }
+  .social-row a:hover{ opacity:1; border-color: var(--gold); }
+  .social-row svg{ width:18px; height:18px; }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    background: var(--navy);
+    border-top: 1px solid var(--line);
+    padding: 1.6rem 5vw 2.2rem;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    flex-wrap: wrap;
+    gap: 1.2rem;
+    color: var(--cream);
+  }
+  footer .brand{ font-size: 0.9rem; }
+  footer nav.links{ font-size: 0.82rem; gap: 26px; }
+
+  /* placeholder tag helper */
+  .ph{
+    outline: 1px dashed rgba(0,0,0,0.25);
+    outline-offset: 3px;
+  }
+
+  @media (max-width: 880px){
+    section.hero{
+      grid-template-columns: 1fr;
+      text-align:center;
+    }
+    .cover-slot{
+      grid-row: auto;
+      margin: 0 auto;
+      max-width: 260px;
+      width: 100%;
+    }
+    .hero-copy-top, .hero-main{ grid-column: 1; }
+    footer{ flex-direction:column; text-align:center; }
+  }
+
+  @media (max-width: 880px){
+    header.nav{ flex-direction:column; gap: 16px; }
+    nav.links{ gap: 18px; flex-wrap: wrap; justify-content:center; }
+  }
+
+  @media (max-width: 480px){
+    nav.links{ font-size: 0.8rem; gap: 12px 16px; }
+  }
 </style>
 </head>
-
 <body>
 
 <header class="nav">
-  <div class="brand">A.M. Marklund</div>
+  <div class="brand">
+    <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="24" cy="24" r="22.5" stroke="#f4ede2" stroke-width="1.2"/>
+      <text x="24" y="30" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="20" fill="#f4ede2">AM</text>
+    </svg>
+    A.M. Marklund
+  </div>
   <nav class="links">
-	<a href="#home">Home</a>
-	<a href="#about">About</a>
+    <a href="#home" class="active">Home</a>
+    <a href="#books">Books</a>
+    <a href="#store">Store</a>
+    <a href="#connect">Stay Connected</a>
+    <a href="#about">About</a>
   </nav>
 </header>
 
 <section class="hero" id="home">
 
   <div class="cover-slot">
-	<img src="images/honeyblade.jpg" alt="Honeyblade book cover">
-  </div>
+  <img src="images/Honeyblade.jpg" alt="Honeyblade book cover">
+</div>
 
   <div class="hero-main">
-	<h1 class="title">
-  	HONEYBLADE
-  	<span class="accent">The Honeyblade Duology</span>
-	</h1>
+    <h1 class="title">
+      HONEYBLADE
+      <span class="accent">The Honeyblade Duology</span>
+    </h1>
 
-	<p style="margin-top:20px;">
-  	medieval fantasy AND romance
-	</p>
+    <div class="vibes">
+      <div class="vibes-label">vibes:</div>
+      <ul>
+        <li>medevial set fantasy</li>
+        <li class="and">AND</li>
+        <li>romance</li>
+      </ul>
+      <div class="divider"></div>
+      <ul>
+        <li>enemies to lovers</li>
+        <li>court intrigue</li>
+        <li>royal courtship trials and false identity</li>
+        <li>slow burn tension</li>
+      </ul>
+    </div>
 
-	<p style="margin-top:20px;">
-  	enemies to lovers · court intrigue · slow burn
-	</p>
+    <div class="release">
+      <div class="when">coming July 29th, 2026</div>
+      <div class="formats">in paperback, ebook, and on KU</div>
+    </div>
 
-	<p style="margin-top:30px;">
-  	coming July 29th, 2026
-	</p>
-
-	<a href="https://www.amazon.com/Honeyblade-Duology-Book-1-ebook/dp/B0H2BWSPKY"
-   	target="_blank"
-   	class="cta">
-  	Pre-order on Amazon
-	</a>
-  </div>
-
+    <div class="cta-row">
+      <a href="https://www.amazon.com/Honeyblade-Duology-Book-1-ebook/dp/B0H2BWSPKY" target="_blank" class="cta cta-secondary">
+  Pre-order on Amazon
+</a>
 </section>
 
-<section style="background:#1b2030;color:#f4ede2;padding:60px 20px;text-align:center;" id="about">
+<section class="newsletter-wrap" id="connect">
+  <div class="newsletter-card-outer">
+    <div class="newsletter-card">
+      <h2>Join the Newsletter</h2>
+      <p class="desc">Subscribe to my newsletter and stay updated with monthly updates, notifications of new releases, and early ARCs and cover reveals.</p>
+      <div class="field">
+        <input type="text" placeholder="FIRSTNAME">
+      </div>
+      <div class="field">
+        <input type="email" placeholder="EMAIL">
+        <div class="hint">Provide your email address to subscribe. For e.g abc@xyz.com</div>
+      </div>
+      <button class="subscribe-btn">Subscribe</button>
+    </div>
+  </div>
+</section>
 
+<section class="contact" id="about">
   <h2>Contact</h2>
-  <p style="margin-top:10px;">marklundbooks@gmail.com</p>
+  <div class="block">
+    <p>To contact me about my books, to working together or anything else, please don't hesitate to email me:</p>
+    <p><a class="email" href="mailto:marklundbooks@gmail.com">marklundbooks@gmail.com</a></p>
+  </div>
 
-  <div class="social-row" style="margin-top:30px;">
+  <div class="follow">
+  <h3>Follow Along</h3>
 
-	<a href="https://instagram.com/ammarklund" target="_blank">
-  	<svg viewBox="0 0 24 24" fill="none" stroke="#f4ede2">
+  <div class="social-row">
+
+	<a href="https://instagram.com/ammarklund" target="_blank" aria-label="Instagram">
+  	<svg viewBox="0 0 24 24" fill="none" stroke="#f4ede2" stroke-width="1.5">
     	<rect x="3" y="3" width="18" height="18" rx="5"/>
     	<circle cx="12" cy="12" r="4"/>
     	<circle cx="17.2" cy="6.8" r="1"/>
   	</svg>
 	</a>
 
-	<a href="https://tiktok.com/@ammarklund" target="_blank">
-  	<svg viewBox="0 0 24 24" fill="none" stroke="#f4ede2">
+	<a href="https://tiktok.com/@ammarklund" target="_blank" aria-label="TikTok">
+  	<svg viewBox="0 0 24 24" fill="none" stroke="#f4ede2" stroke-width="1.5">
     	<path d="M14 3c.5 3 2.3 4.7 5 5v3c-1.9 0-3.6-.6-5-1.7V15a5 5 0 1 1-4-4.9"/>
   	</svg>
 	</a>
 
   </div>
-
+</div>
 </section>
+
+<footer>
+  <div class="brand">A.M. Marklund</div>
+  <nav class="links">
+    <a href="#home">Home</a>
+    <a href="#books">Books</a>
+    <a href="#store">Store</a>
+    <a href="#connect">Stay Connected</a>
+    <a href="#about">About</a>
+  </nav>
+</footer>
 
 </body>
 </html>
-
