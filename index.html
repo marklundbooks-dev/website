@@ -376,12 +376,17 @@
       grid-template-columns: 1fr;
       text-align:center;
     }
-    .cover-slot img{
+    .cover-slot{
+  background: #3a2418;
+}
+
+.cover-slot img{
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   display: block;
 }
+
     .hero-copy-top, .hero-main{ grid-column: 1; }
     footer{ flex-direction:column; text-align:center; }
   }
