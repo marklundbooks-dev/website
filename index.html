@@ -83,15 +83,25 @@
 
   /* ---------- HERO ---------- */
   section.hero{
-    background: linear-gradient(160deg, #e0904f 0%, var(--terracotta-1) 35%, var(--terracotta-2) 78%, #8a3a1d 100%);
-    padding: 6vw 5vw 7vw;
-    display:grid;
-    grid-template-columns: minmax(220px, 340px) 1fr;
-    gap: 6vw;
-    align-items:center;
-    position: relative;
-    overflow:hidden;
-  }
+  background: linear-gradient(160deg, #e0904f 0%, var(--terracotta-1) 35%, var(--terracotta-2) 78%, #8a3a1d 100%);
+  padding: 6vw 5vw 7vw;
+}
+
+section.hero > .cover-slot,
+section.hero > .hero-copy-top,
+section.hero > .hero-main{
+  max-width: 1200px;
+}
+
+.hero-grid{
+  display:grid;
+  grid-template-columns: minmax(220px, 340px) 1fr;
+  gap: 6vw;
+  align-items:center;
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+}
 
   .hero-copy-top{
     grid-column: 2;
