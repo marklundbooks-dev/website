@@ -78,6 +78,47 @@
   nav.links a.active{
     border-color: var(--cream);
   }
+	.nav-dropdown{
+    position: relative;
+  }
+
+  .dropdown-menu{
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin-top: 14px;
+    background: var(--navy-light);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 10px 0;
+    min-width: 220px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-6px);
+    transition: opacity .15s ease, transform .15s ease, visibility .15s ease;
+    z-index: 20;
+  }
+
+  .dropdown-menu a{
+    display: block;
+    padding: 9px 22px;
+    font-size: 0.85rem;
+    letter-spacing: 0.06em;
+    text-transform: none;
+    opacity: 0.85;
+    white-space: nowrap;
+  }
+
+  .dropdown-menu a:hover{
+    opacity: 1;
+    color: var(--gold);
+  }
+
+  .nav-dropdown:hover .dropdown-menu{
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
 
   .nav-toggle{ display:none; }
 
