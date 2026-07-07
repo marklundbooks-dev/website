@@ -468,14 +468,14 @@
     <div class="newsletter-card">
       <h2>Join the Newsletter</h2>
       <p class="desc">Subscribe to my newsletter and stay updated with monthly updates, notifications of new releases, and early ARCs and cover reveals.</p>
-      <div class="field">
-        <input type="text" placeholder="FIRSTNAME">
-      </div>
-      <div class="field">
-        <input type="email" placeholder="EMAIL">
-        <div class="hint">Provide your email address to subscribe. For e.g abc@xyz.com</div>
-      </div>
-      <button class="subscribe-btn">Subscribe</button>
+      <form id="newsletter-form">
+        <div class="field">
+          <input type="email" name="email_address" id="nl-email" placeholder="EMAIL" required>
+          <div class="hint">Provide your email address to subscribe. For e.g abc@xyz.com</div>
+        </div>
+        <button class="subscribe-btn" type="submit" id="nl-submit-btn">Subscribe</button>
+        <div id="nl-message" style="margin-top:10px; font-size:0.85rem;"></div>
+      </form>
     </div>
   </div>
 </section>
