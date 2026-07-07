@@ -521,5 +521,47 @@
   </nav>
 </footer>
 
+<script>
+  const nlForm = document.getElementById('newsletter-form');
+  const nlBtn = document.getElementById('nl-submit-btn');
+  const nlMsg = document.getElementById('nl-message');
+
+  nlForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const formId = '9653026';
+    const apiKey = 'Z5mWQXlTlT_0gdsSmKkw1g';
+    const email = document.getElementById('nl-email').value;
+
+    nlBtn.disabled = true;
+    nlBtn.textContent = 'Subscribing...';
+    nlMsg.textContent = '';
+
+    fetch(`https://api.convertkit.com/v3/forms/${formId}/subscribe`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        api_key: apiKey,
+        email: email
+      })
+    })
+    .then(response => response.json())
+    .then(data => {
+      nlBtn.textContent = "You've signed up!";
+      nlMsg.style.color = '#2e5c33';
+      nlMsg.textContent = "Check your inbox to confirm your subscription.";
+      nlForm.reset();
+    })
+    .catch(error => {
+      nlBtn.disabled = false;
+      nlBtn.textContent = 'Subscribe';
+      nlMsg.style.color = '#a8461f';
+      nlMsg.textContent = 'Something went wrong — please try again.';
+    });
+  });
+</script>
 </body>
 </html>
