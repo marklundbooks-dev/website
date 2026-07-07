@@ -89,7 +89,7 @@
   overflow:hidden;
 }
 
-section.hero{
+.hero-inner{
   display:grid;
   grid-template-columns: minmax(220px, 340px) minmax(0, 640px);
   gap: 6vw;
@@ -431,10 +431,13 @@ section.hero{
 </header>
 
 <section class="hero" id="home">
+  <div class="hero-inner">
 
   <div class="cover-slot">
   <img src="images/Honeyblade.jpg" alt="Honeyblade book cover">
 </div>
+
+  <div class="hero-main">
 
   <div class="hero-main">
     <h1 class="title">
@@ -466,6 +469,7 @@ section.hero{
       <a href="https://www.amazon.com/Honeyblade-Duology-Book-1-ebook/dp/B0H2BWSPKY" target="_blank" class="cta cta-secondary">
   Pre-order on Amazon
 </a>
+  </div>
 </section>
 
 <section class="newsletter-wrap" id="connect">
