@@ -85,12 +85,17 @@
   section.hero{
   background: linear-gradient(160deg, #e0904f 0%, var(--terracotta-1) 35%, var(--terracotta-2) 78%, #8a3a1d 100%);
   padding: 6vw 5vw 7vw;
-  display:grid;
-  grid-template-columns: minmax(220px, 340px) 1fr;
-  gap: 6vw;
-  align-items:center;
   position: relative;
   overflow:hidden;
+}
+
+section.hero{
+  display:grid;
+  grid-template-columns: minmax(220px, 340px) minmax(0, 640px);
+  gap: 6vw;
+  align-items:center;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
   .hero-copy-top{
