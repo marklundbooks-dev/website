@@ -32,7 +32,6 @@
 
   a{ color:inherit; text-decoration:none; }
 
-  /* ---------- NAV ---------- */
   header.nav{
     background: var(--navy);
     color: var(--cream);
@@ -127,7 +126,6 @@
     nav.links{ font-size: 0.8rem; gap: 12px 16px; }
   }
 
-  /* ---------- INTRO SECTION ---------- */
   section.connect-intro{
     background: var(--cream);
     padding: 5vw 8vw 4vw;
@@ -156,7 +154,6 @@
     color: var(--ink);
   }
 
-  /* ---------- NEWSLETTER SECTION ---------- */
   section.connect-form{
     background: var(--navy);
     padding: 6vw 6vw;
@@ -274,13 +271,56 @@
   <div class="newsletter-card">
     <h2>Join the Newsletter</h2>
     <p>Subscribe to my newsletter for monthly updates, notifications of new releases, and early ARCs and cover reveals. I send one email a month, never more — and no spam, ever.</p>
-    <form action="#" method="post">
-      <input type="email" name="email" placeholder="EMAIL" required>
+    <form id="newsletter-form">
+      <input type="email" name="email_address" id="nl-email" placeholder="EMAIL" required>
       <p class="helper-text">Provide your email address to subscribe. For e.g abc@xyz.com</p>
-      <button type="submit">Subscribe</button>
+      <button type="submit" id="nl-submit-btn">Subscribe</button>
+      <div id="nl-message" style="margin-top:10px; font-size:0.85rem;"></div>
     </form>
   </div>
 </section>
 
+<script>
+  const nlForm = document.getElementById('newsletter-form');
+  const nlBtn = document.getElementById('nl-submit-btn');
+  const nlMsg = document.getElementById('nl-message');
+
+  nlForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const formId = '9653026';
+    const apiKey = 'Z5mWQXlTlT_0gdsSmKkw1g';
+    const email = document.getElementById('nl-email').value;
+
+    nlBtn.disabled = true;
+    nlBtn.textContent = 'Subscribing...';
+    nlMsg.textContent = '';
+
+    fetch(`https://api.convertkit.com/v3/forms/${formId}/subscribe`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        api_key: apiKey,
+        email: email
+      })
+    })
+    .then(response => response.json())
+    .then(data => {
+      nlBtn.textContent = "You've signed up!";
+      nlMsg.style.color = '#2e5c33';
+      nlMsg.textContent = "Thanks for joining!";
+      nlForm.reset();
+    })
+    .catch(error => {
+      nlBtn.disabled = false;
+      nlBtn.textContent = 'Subscribe';
+      nlMsg.style.color = '#a8461f';
+      nlMsg.textContent = 'Something went wrong — please try again.';
+    });
+  });
+</script>
 </body>
 </html>
