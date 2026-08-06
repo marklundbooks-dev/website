@@ -32,6 +32,7 @@
 
   a{ color:inherit; text-decoration:none; }
 
+  /* ---------- NAV ---------- */
   header.nav{
     background: var(--navy);
     color: var(--cream);
@@ -205,26 +206,21 @@
 
   .about-photo{
     position: relative;
-    background: repeating-linear-gradient(45deg, rgba(0,0,0,0.05) 0 14px, rgba(0,0,0,0.02) 14px 28px), #ded2ba;
+    background: var(--navy);
     min-height: 320px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding: 3vw 3vw 0;
+    overflow: hidden;
   }
   .about-photo img{
-    width:100%; height:100%;
-    object-fit: cover;
-    display:block;
-  }
-  .about-photo .placeholder-label{
-    position:absolute;
-    inset:0;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    text-align:center;
-    color:#7a7060;
-    font-size:0.9rem;
-    letter-spacing:0.12em;
-    text-transform:uppercase;
-    padding: 1rem;
+    max-width: 88%;
+    max-height: 92%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    display: block;
   }
 
   @media (max-width: 880px){
@@ -282,8 +278,9 @@
     </div>
 
     <div class="bio">
-      <p>A.M. Marklund is a fantasy author with roots in Sweden. When not writing, she spends her time at her 9-5, or training for a triathalon. Out in the wild you will never see her turn down a good book, a board game, or an excuse to talk about fantasy lore.</p>
+       <p>A.M. Marklund is a fantasy author with roots in Sweden. When not writing, she spends her time at her 9-5, or training for a triathalon. Out in the wild you will never see her turn down a good book, a board game, or an excuse to talk about fantasy lore.</p>
       <p>She is passionate about writing character-driven fantasy about identity, truth, and impossible choices. Her stories explore what happens when the roles, beliefs, and systems that shape us begin to unravel.</p>
+
     </div>
 
     <h2>Contact</h2>
@@ -294,9 +291,7 @@
   </div>
 
   <div class="about-photo">
-    <div class="placeholder-label">author photo<br>placeholder</div>
-    <!-- once you have a photo, replace the div above with:
-    <img src="images/author-photo.jpg" alt="A.M. Marklund"> -->
+    <img src="images/erasebg-transformed.png" alt="A.M. Marklund">
   </div>
 
 </section>
