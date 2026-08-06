@@ -130,7 +130,7 @@
   /* ---------- ABOUT SPLIT LAYOUT ---------- */
   section.about-split{
     display: grid;
-    grid-template-columns: minmax(0, 640px) 1fr;
+    grid-template-columns: minmax(0, 1fr) minmax(180px, 34%);
     min-height: calc(100vh - 79px);
   }
 
@@ -208,27 +208,26 @@
     position: relative;
     background: var(--navy);
     min-height: 320px;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    padding: 3vw 3vw 0;
     overflow: hidden;
   }
   .about-photo img{
-    max-width: 88%;
-    max-height: 92%;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    height: 100%;
     width: auto;
-    height: auto;
-    object-fit: contain;
+    max-width: none;
+    object-fit: cover;
     display: block;
   }
 
   @media (max-width: 880px){
-    section.about-split{
-      grid-template-columns: 1fr;
-    }
-    .about-photo{ min-height: 320px; order:-1; }
     .about-copy{ padding: 8vw 6vw; }
+  }
+  @media (max-width: 560px){
+    section.about-split{
+      grid-template-columns: minmax(0, 1fr) minmax(120px, 26%);
+    }
   }
 </style>
 </head>
