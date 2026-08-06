@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stay Connected — A.M. Marklund</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Caveat:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy: #1b2030;
+    --navy-light: #262d42;
+    --terracotta-1: #d97a3f;
+    --terracotta-2: #a8461f;
+    --burgundy: #7c1f2c;
+    --cream: #f4ede2;
+    --cream-dim: #f4ede2cc;
+    --ink: #1a1610;
+    --gold: #c9a15a;
+    --line: rgba(244,237,226,0.18);
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+
+  body{
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'EB Garamond', serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a{ color:inherit; text-decoration:none; }
+
+  /* ---------- NAV ---------- */
+  header.nav{
+    background: var(--navy);
+    color: var(--cream);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding: 22px 5vw;
+    position: relative;
+    z-index: 10;
+  }
+
+  .brand{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    font-family:'Cormorant Garamond', serif;
+    font-size: 1.05rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+  }
+
+  .brand svg{ width:34px; height:34px; flex-shrink:0; }
+
+  nav.links{
+    display:flex;
+    gap: 38px;
+    font-size: 0.95rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-family: 'EB Garamond', serif;
+  }
+
+  nav.links a{
+    opacity: 0.85;
+    border-bottom: 1px solid transparent;
+    padding-bottom: 4px;
+    transition: opacity .2s, border-color .2s;
+  }
+  nav.links a:hover, nav.links a:focus-visible{
+    opacity: 1;
+    border-color: var(--gold);
+  }
+  nav.links a.active{
+    border-color: var(--cream);
+  }
+
+  .nav-dropdown{ position: relative; }
+
+  .dropdown-menu{
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin-top: 14px;
+    background: var(--navy-light);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 10px 0;
+    min-width: 220px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-6px);
+    transition: opacity .15s ease, transform .15s ease, visibility .15s ease;
+    z-index: 20;
+  }
+
+  .dropdown-menu a{
+    display: block;
+    padding: 9px 22px;
+    font-size: 0.85rem;
+    letter-spacing: 0.06em;
+    text-transform: none;
+    opacity: 0.85;
+    white-space: nowrap;
+  }
+
+  .dropdown-menu a:hover{
+    opacity: 1;
+    color: var(--gold);
+  }
+
+  .nav-dropdown:hover .dropdown-menu{
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  @media (max-width: 880px){
+    header.nav{ flex-direction:column; gap: 16px; }
+    nav.links{ gap: 18px; flex-wrap: wrap; justify-content:center; }
+  }
+  @media (max-width: 480px){
+    nav.links{ font-size: 0.8rem; gap: 12px 16px; }
+  }
+
+  /* ---------- INTRO SECTION ---------- */
+  section.connect-intro{
+    background: var(--cream);
+    padding: 5vw 8vw 4vw;
+    text-align: center;
+  }
+
+  .connect-intro h1{
+    font-family:'Cormorant Garamond', serif;
+    font-weight:600;
+    font-size: clamp(2rem, 3.4vw, 2.7rem);
+    margin-bottom: 1.4rem;
+  }
+
+  .connect-intro p{
+    color: #4a4238;
+    line-height: 1.75;
+    max-width: 640px;
+    margin: 0 auto 1.2rem;
+  }
+
+  .connect-intro .cta-line{
+    margin-top: 1.6rem;
+    font-family:'Cormorant Garamond', serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  /* ---------- NEWSLETTER SECTION ---------- */
+  section.connect-form{
+    background: var(--navy);
+    padding: 6vw 6vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .newsletter-card{
+    background: var(--cream);
+    border: 1px solid var(--burgundy);
+    border-radius: 2px;
+    padding: 3.2rem 3rem;
+    max-width: 560px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .newsletter-card h2{
+    font-family:'Cormorant Garamond', serif;
+    font-weight: 600;
+    font-size: 1.9rem;
+    margin-bottom: 1rem;
+  }
+
+  .newsletter-card p{
+    color: #4a4238;
+    line-height: 1.7;
+    font-size: 1rem;
+    max-width: 440px;
+    margin: 0 auto 1.8rem;
+  }
+
+  .newsletter-card form{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .newsletter-card input[type="email"]{
+    width: 100%;
+    max-width: 420px;
+    padding: 0.85rem 1rem;
+    border: 1px solid #d9cbb4;
+    background: #fff;
+    font-family: 'EB Garamond', serif;
+    font-size: 1rem;
+    color: var(--ink);
+  }
+  .newsletter-card input[type="email"]:focus{
+    outline: none;
+    border-color: var(--burgundy);
+  }
+
+  .newsletter-card .helper-text{
+    font-size: 0.8rem;
+    color: #8a8072;
+    margin: 0.6rem 0 1.6rem;
+    max-width: none;
+  }
+
+  .newsletter-card button{
+    background: var(--ink);
+    color: var(--cream);
+    border: none;
+    padding: 0.85rem 2.4rem;
+    font-family: 'EB Garamond', serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background .2s;
+  }
+  .newsletter-card button:hover{
+    background: var(--burgundy);
+  }
+
+  @media (max-width: 600px){
+    .newsletter-card{ padding: 2.4rem 1.6rem; }
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="brand">
+    <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="24" cy="24" r="22.5" stroke="#f4ede2" stroke-width="1.2"/>
+      <text x="24" y="30" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="20" fill="#f4ede2">AM</text>
+    </svg>
+    A.M. Marklund
+  </div>
+  <nav class="links">
+    <a href="index.html#home">Home</a>
+    <div class="nav-dropdown">
+      <a href="honeyblade.html">Books</a>
+      <div class="dropdown-menu">
+        <a href="honeyblade.html">Honeyblade Duology</a>
+      </div>
+    </div>
+    <a href="https://www.amazon.com/stores/author/B0H2F5CYK8/allbooks?_encoding=UTF8&ref_=aufs_ap_ahdr_dsk_ab&pd_rd_w=eWnZV&content-id=amzn1.sym.7e190e19-9f6f-4df8-807a-5a7608594741&pf_rd_p=7e190e19-9f6f-4df8-807a-5a7608594741&pf_rd_r=143-4826804-3677019&pd_rd_wg=1khMs&pd_rd_r=7360ff15-5d05-4ac9-a55b-9286220b371a&ccs_id=8a8eff72-197b-4bfe-a102-ae41e32d838c" target="_blank">Store</a>
+    <a href="connect.html" class="active">Stay Connected</a>
+    <a href="about.html">About</a>
+  </nav>
+</header>
+
+<section class="connect-intro">
+  <h1>Stay Up To Date</h1>
+  <p>I send monthly newsletters to my subscribers, and I'd love to have you as part of the team. My updates include information on where I'm at in the drafting process for my books, as well as first access to ARC forms and exclusive early cover reveals.</p>
+  <p>As a subscriber, you'll also receive an email notification on the day of any new book release.</p>
+  <p class="cta-line">Sign up now below!</p>
+</section>
+
+<section class="connect-form">
+  <div class="newsletter-card">
+    <h2>Join the Newsletter</h2>
+    <p>Subscribe to my newsletter for monthly updates, notifications of new releases, and early ARCs and cover reveals. I send one email a month, never more — and no spam, ever.</p>
+    <form action="#" method="post">
+      <input type="email" name="email" placeholder="EMAIL" required>
+      <p class="helper-text">Provide your email address to subscribe. For e.g abc@xyz.com</p>
+      <button type="submit">Subscribe</button>
+    </form>
+  </div>
+</section>
+
+</body>
+</html>
