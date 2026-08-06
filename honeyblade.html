@@ -78,6 +78,46 @@
     border-color: var(--cream);
   }
 
+  .nav-dropdown{ position: relative; }
+
+  .dropdown-menu{
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin-top: 14px;
+    background: var(--navy-light);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 10px 0;
+    min-width: 220px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-6px);
+    transition: opacity .15s ease, transform .15s ease, visibility .15s ease;
+    z-index: 20;
+  }
+
+  .dropdown-menu a{
+    display: block;
+    padding: 9px 22px;
+    font-size: 0.85rem;
+    letter-spacing: 0.06em;
+    text-transform: none;
+    opacity: 0.85;
+    white-space: nowrap;
+  }
+
+  .dropdown-menu a:hover{
+    opacity: 1;
+    color: var(--gold);
+  }
+
+  .nav-dropdown:hover .dropdown-menu{
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
   section.series-header{
     background: var(--navy);
     padding: 4vw 5vw 1.5vw;
@@ -188,6 +228,53 @@
     border: 1px solid var(--line);
   }
 
+  section.coming-soon{
+    background: var(--navy);
+    padding: 0 5vw 6vw;
+  }
+
+  .coming-soon-inner{
+    max-width: 1200px;
+    margin: 0 auto;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 3vw 4vw;
+    text-align: center;
+  }
+
+  .coming-soon-badge{
+    display: inline-block;
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 1px solid var(--gold);
+    border-radius: 40px;
+    padding: 6px 18px;
+    margin-bottom: 1.2rem;
+  }
+
+  .coming-soon h2{
+    font-family:'Cormorant Garamond', serif;
+    font-weight: 600;
+    color: var(--cream);
+    font-size: clamp(1.7rem, 3vw, 2.4rem);
+    margin-bottom: 0.9rem;
+  }
+
+  .coming-soon p{
+    color: var(--cream-dim);
+    font-size: 1rem;
+    line-height: 1.65;
+    max-width: 480px;
+    margin: 0 auto 1.8rem;
+  }
+
+  .coming-soon .cta{
+    background: var(--burgundy);
+    color: var(--cream);
+  }
+
   footer{
     background: var(--navy);
     border-top: 1px solid var(--line);
@@ -234,6 +321,7 @@
 
   @media (max-width: 480px){
     nav.links{ font-size: 0.8rem; gap: 12px 16px; }
+    .coming-soon-inner{ padding: 8vw 6vw; }
   }
 </style>
 </head>
@@ -248,14 +336,14 @@
     A.M. Marklund
   </div>
   <nav class="links">
-    <a href="#home" class="active">Home</a>
+    <a href="index.html">Home</a>
     <div class="nav-dropdown">
-      <a href="honeyblade.html">Books</a>
+      <a href="honeyblade.html" class="active">Books</a>
       <div class="dropdown-menu">
         <a href="honeyblade.html">Honeyblade Duology</a>
       </div>
     </div>
-    <a href="https://www.amazon.com/stores/author/B0H2F5CYK8/allbooks?_encoding=UTF8&ref_=aufs_ap_ahdr_dsk_ab&pd_rd_w=eWnZV&content-id=amzn1.sym.7e190e19-9f6f-4df8-807a-5a7608594741&pf_rd_p=7e190e19-9f6f-4df8-807a-5a7608594741&pf_rd_r=143-4826804-3677019&pd_rd_wg=1khMs&pd_rd_r=7360ff15-5d05-4ac9-a55b-9286220b371a&ccs_id=8a8eff72-197b-4bfe-a102-ae41e32d838c" target="_blank">Store</a>
+    <a href="https://www.amazon.com/stores/author/B0H2F5CYK8/allbooks" target="_blank">Store</a>
     <a href="connect.html">Stay Connected</a>
     <a href="about.html">About</a>
   </nav>
@@ -302,6 +390,15 @@
   </div>
 </section>
 
+<section class="coming-soon">
+  <div class="coming-soon-inner">
+    <span class="coming-soon-badge">Book Two — Coming Soon</span>
+    <h2>The story isn't over yet.</h2>
+    <p>Sign up to the newsletter for exclusive information on the title, cover reveal, and ARC signups — before anyone else hears about it.</p>
+    <a href="connect.html" class="cta cta-secondary">Join the Newsletter</a>
+  </div>
+</section>
+
 <footer>
   <div class="footer-brand-block">
     <div class="brand">A.M. Marklund</div>
@@ -311,8 +408,8 @@
     <a href="index.html">Home</a>
     <a href="honeyblade.html">Books</a>
     <a href="https://www.amazon.com/stores/author/B0H2F5CYK8/allbooks" target="_blank">Store</a>
-    <a href="index.html#connect">Stay Connected</a>
-    <a href="index.html#about">About</a>
+    <a href="connect.html">Stay Connected</a>
+    <a href="about.html">About</a>
   </nav>
 </footer>
 
