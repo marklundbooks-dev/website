@@ -313,29 +313,20 @@
       text-align:center;
     }
     .mobile-title-block{
-      display: block;
-      order: 1;
-    }
-    .mobile-title-block .title{
-      font-family:'Cormorant Garamond', serif;
-      font-weight:600;
-      color: var(--gold);
-      font-size: clamp(2.2rem, 4.4vw, 3.2rem);
-      line-height: 1.05;
-      margin-bottom: 0.4rem;
+      display: none;
     }
     .book-copy .title,
     .book-copy .book-label{
-      display: none;
+      display: block;
     }
     .cover-slot{
-      order: 2;
+      order: 1;
       max-width: 320px;
       width: 100%;
-      margin: 1.6rem auto 2rem;
+      margin: 0 auto 2rem;
     }
     .book-copy{
-      order: 3;
+      order: 2;
     }
     .cta-row{
       justify-content:center;
@@ -381,11 +372,6 @@
 
 <section class="book-block">
   <div class="book-inner">
-
-    <div class="mobile-title-block">
-      <h2 class="title">Honeyblade</h2>
-      <div class="book-label">Book One</div>
-    </div>
 
     <div class="cover-slot">
       <img src="images/1783434970.png" alt="Honeyblade book cover">
