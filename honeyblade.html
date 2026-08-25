@@ -148,6 +148,8 @@
 
   .cover-slot{
     grid-column: 1;
+    grid-row: 1 / span 2;
+    width: 100%;
     aspect-ratio: 2/3;
     overflow: visible;
   }
@@ -160,11 +162,17 @@
     display: block;
   }
 
-  .book-copy{
+  .book-title-block{
     grid-column: 2;
-    padding-top: 0.5rem;
+    grid-row: 1;
   }
 
+  .book-copy{
+    grid-column: 2;
+    grid-row: 2;
+  }
+
+  .book-title-block .title,
   .book-copy .title{
     font-family:'Cormorant Garamond', serif;
     font-weight:600;
@@ -304,12 +312,21 @@
 
   @media (max-width: 880px){
     .book-inner{
-      grid-template-columns: 1fr;
+      display: flex;
+      flex-direction: column;
       text-align:center;
     }
+    .book-title-block{
+      order: 1;
+    }
     .cover-slot{
+      order: 2;
       max-width: 320px;
-      margin: 0 auto 2rem;
+      width: 100%;
+      margin: 1.6rem auto 2rem;
+    }
+    .book-copy{
+      order: 3;
     }
     .cta-row{
       justify-content:center;
@@ -356,14 +373,16 @@
 <section class="book-block">
   <div class="book-inner">
 
+    <div class="book-title-block">
+      <h2 class="title">Honeyblade</h2>
+      <div class="book-label">Book One</div>
+    </div>
+
     <div class="cover-slot">
       <img src="images/1783434970.png" alt="Honeyblade book cover">
     </div>
 
     <div class="book-copy">
-      <h2 class="title">Honeyblade</h2>
-      <div class="book-label">Book One</div>
-
       <p class="blurb">
         A future king with a bounty on his soul. An assassin tasked with ending him.
         Lira was born with lethal powers, and when Prince Kellan merely laugh when she releases it to kill him, 
