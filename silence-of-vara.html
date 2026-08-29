@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Silence of Vara — A.M. Marklund</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* shared site skeleton — matches Honeyblade, Veil, Glassmaker's War */
+    --navy: #1b2030;
+    --navy-light: #262d42;
+    --cream: #f4ede2;
+    --cream-dim: #f4ede2cc;
+    --ink: #1a1610;
+    --line: rgba(244,237,226,0.18);
+
+    /* The Silence of Vara signature palette — imperial, austere, Byzantine-adjacent */
+    --marble: #cfc6b0;
+    --gold: #b8952f;
+    --gold-dim: #b8952fcc;
+    --porphyry: #6b2737;
+    --porphyry-deep: #3f1520;
+
+    /* book two tint — colder, closer to Veth's silence */
+    --ash-violet: #56506b;
+    --ash-violet-deep: #302c40;
+  }
+
+  .tint-ashviolet .title{ color: var(--ash-violet); }
+  .tint-ashviolet .cta-primary{ background: var(--ash-violet-deep); }
+  .tint-ashviolet .cover-placeholder{ color: var(--ash-violet); }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+
+  body{
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'EB Garamond', serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a{ color:inherit; text-decoration:none; }
+
+  header.nav{
+    background: var(--navy);
+    color: var(--cream);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding: 22px 5vw;
+    position: relative;
+    z-index: 10;
+  }
+
+  .brand{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    font-family:'Cormorant Garamond', serif;
+    font-size: 1.05rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+  }
+
+  .brand svg{ width:34px; height:34px; flex-shrink:0; }
+
+  nav.links{
+    display:flex;
+    gap: 38px;
+    font-size: 0.95rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-family: 'EB Garamond', serif;
+  }
+
+  nav.links a{
+    opacity: 0.85;
+    border-bottom: 1px solid transparent;
+    padding-bottom: 4px;
+    transition: opacity .2s, border-color .2s;
+  }
+  nav.links a:hover, nav.links a:focus-visible{
+    opacity: 1;
+    border-color: var(--gold);
+  }
+  nav.links a.active{
+    border-color: var(--cream);
+  }
+
+  .nav-dropdown{ position: relative; }
+
+  .dropdown-menu{
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin-top: 14px;
+    background: var(--navy-light);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 10px 0;
+    min-width: 220px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-6px);
+    transition: opacity .15s ease, transform .15s ease, visibility .15s ease;
+    z-index: 20;
+  }
+
+  .dropdown-menu a{
+    display: block;
+    padding: 9px 22px;
+    font-size: 0.85rem;
+    letter-spacing: 0.06em;
+    text-transform: none;
+    opacity: 0.85;
+    white-space: nowrap;
+  }
+
+  .dropdown-menu a:hover{
+    opacity: 1;
+    color: var(--gold);
+  }
+
+  .nav-dropdown:hover .dropdown-menu{
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .nav-dropdown .nav-label{
+    display: inline-block;
+    opacity: 0.85;
+    border-bottom: 1px solid transparent;
+    padding-bottom: 4px;
+    cursor: default;
+  }
+  .nav-dropdown .nav-label.active{
+    border-color: var(--cream);
+  }
+
+  .nav-toggle{
+    display:none;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    gap:5px;
+    width:32px;
+    height:28px;
+    background:none;
+    border:none;
+    cursor:pointer;
+    padding:0;
+  }
+  .nav-toggle .bar{
+    display:block;
+    height:2px;
+    width:24px;
+    background: var(--cream);
+    transition: transform .2s ease, opacity .2s ease;
+  }
+  .nav-toggle.is-open .bar:nth-child(1){ transform: translateY(7px) rotate(45deg); }
+  .nav-toggle.is-open .bar:nth-child(2){ opacity:0; }
+  .nav-toggle.is-open .bar:nth-child(3){ transform: translateY(-7px) rotate(-45deg); }
+
+  section.series-header{
+    background: var(--navy);
+    padding: 4vw 5vw 1.5vw;
+    text-align: center;
+    position: relative;
+  }
+
+  .series-header h1{
+    font-family:'Marcellus', serif;
+    font-weight:400;
+    color: var(--marble);
+    font-size: clamp(1.9rem, 4.2vw, 3.2rem);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .series-header .kicker{
+    display:block;
+    margin-top: 0.6rem;
+    font-family: 'EB Garamond', serif;
+    font-style: italic;
+    font-size: 0.95rem;
+    letter-spacing: 0.08em;
+    color: var(--gold-dim);
+  }
+
+  section.book-block{
+    background: var(--navy);
+    padding: 2vw 5vw 6vw;
+  }
+
+  .book-inner{
+    display:grid;
+    grid-template-columns: minmax(220px, 340px) minmax(0, 640px);
+    gap: 6vw;
+    align-items:start;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .cover-slot{
+    grid-column: 1;
+    width: 100%;
+    aspect-ratio: 2/3;
+    overflow: visible;
+    background: var(--navy-light);
+    border: 1px solid var(--line);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+
+  .cover-slot img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
+
+  .cover-slot .cover-placeholder{
+    color: var(--gold-dim);
+    font-family: 'Marcellus', serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    text-align: center;
+    padding: 2rem;
+  }
+
+  .book-copy{
+    grid-column: 2;
+  }
+
+  .book-copy .title{
+    font-family:'Marcellus', serif;
+    font-weight:400;
+    color: var(--porphyry);
+    -webkit-text-stroke: 0.4px var(--gold);
+    font-size: clamp(1.9rem, 3.8vw, 2.7rem);
+    line-height: 1.15;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.01em;
+  }
+
+  .book-label{
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--marble);
+    margin-bottom: 1.3rem;
+  }
+
+  .book-copy .blurb{
+    color: var(--cream-dim);
+    font-size: 1.02rem;
+    line-height: 1.65;
+    margin-bottom: 1.5rem;
+  }
+
+  .vibes-line{
+    color: var(--cream-dim);
+    font-size: 1rem;
+    line-height: 2;
+    margin-bottom: 1.5rem;
+  }
+
+  .tagline{
+    font-style: italic;
+    color: var(--cream-dim);
+    font-size: 0.98rem;
+    line-height: 1.6;
+    margin-bottom: 1.8rem;
+  }
+
+  .cta-row{
+    display:flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .cta{
+    padding: 12px 30px;
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    border: 1px solid transparent;
+    border-radius: 40px;
+    cursor: pointer;
+    transition: transform .15s ease, box-shadow .15s ease;
+    display:inline-block;
+  }
+  .cta:hover{ transform: translateY(-1px); }
+  .cta-secondary{
+    background: var(--navy-light);
+    color: var(--cream);
+    border: 1px solid var(--line);
+  }
+  .cta-primary{
+    background: var(--porphyry-deep);
+    color: var(--cream);
+  }
+
+  section.coming-soon{
+    background: var(--navy);
+    padding: 0 5vw 6vw;
+  }
+
+  .coming-soon-inner{
+    max-width: 1200px;
+    margin: 0 auto;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 3vw 4vw;
+    text-align: center;
+  }
+
+  .coming-soon-badge{
+    display: inline-block;
+    font-family: 'Marcellus', serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 1px solid var(--gold);
+    border-radius: 40px;
+    padding: 6px 18px;
+    margin-bottom: 1.2rem;
+  }
+
+  .coming-soon h2{
+    font-family:'Marcellus', serif;
+    font-weight: 400;
+    color: var(--cream);
+    font-size: clamp(1.4rem, 2.6vw, 2rem);
+    margin-bottom: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+  }
+
+  .coming-soon p{
+    color: var(--cream-dim);
+    font-size: 1rem;
+    line-height: 1.65;
+    max-width: 480px;
+    margin: 0 auto 1.8rem;
+  }
+
+  .coming-soon .cta{
+    background: var(--porphyry-deep);
+    color: var(--cream);
+  }
+
+  footer{
+    background: var(--navy);
+    border-top: 1px solid var(--line);
+    padding: 1.6rem 5vw 2.2rem;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    flex-wrap: wrap;
+    gap: 1.2rem;
+    color: var(--cream);
+  }
+  footer .brand{ font-size: 0.9rem; letter-spacing: 0.08em; }
+  footer nav.links{ font-size: 0.82rem; gap: 26px; }
+
+  .footer-brand-block{
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .copyright{
+    font-size: 0.72rem;
+    letter-spacing: 0.02em;
+    text-transform: none;
+    color: var(--cream-dim);
+  }
+
+  @media (max-width: 880px){
+    .book-inner{
+      display: flex;
+      flex-direction: column;
+      text-align:center;
+    }
+    .cover-slot{
+      order: 1;
+      max-width: 320px;
+      width: 100%;
+      margin: 0 auto 2rem;
+    }
+    .book-copy{
+      order: 2;
+    }
+    .cta-row{
+      justify-content:center;
+    }
+    footer{ flex-direction:column; text-align:center; }
+  }
+
+  @media (max-width: 880px){
+    header.nav{ position:relative; }
+
+    .nav-toggle{ display:flex; }
+
+    nav.links{
+      display:none;
+      position:absolute;
+      top:100%;
+      left:0;
+      right:0;
+      flex-direction:column;
+      align-items:center;
+      gap: 22px;
+      background: var(--navy);
+      padding: 26px 5vw 32px;
+      border-top: 1px solid var(--line);
+      box-shadow: 0 16px 28px rgba(0,0,0,0.3);
+      z-index: 15;
+    }
+
+    nav.links.open{ display:flex; }
+
+    .nav-dropdown{ text-align:center; }
+
+    .nav-dropdown .dropdown-menu{
+      position: static;
+      opacity:1;
+      visibility:visible;
+      transform:none;
+      background:transparent;
+      border:none;
+      padding: 8px 0 0;
+      min-width: 0;
+    }
+    .nav-dropdown .dropdown-menu a{
+      padding: 6px 0;
+      font-size: 0.8rem;
+      opacity: 0.75;
+    }
+  }
+
+  @media (max-width: 480px){
+    nav.links{ font-size: 0.8rem; gap: 12px 16px; }
+    .coming-soon-inner{ padding: 8vw 6vw; }
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="brand">
+    <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="24" cy="24" r="22.5" stroke="#f4ede2" stroke-width="1.2"/>
+      <text x="24" y="30" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="20" fill="#f4ede2">AM</text>
+    </svg>
+    A.M. Marklund
+  </div>
+  <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navLinks">
+    <span class="bar"></span>
+    <span class="bar"></span>
+    <span class="bar"></span>
+  </button>
+  <nav class="links" id="navLinks">
+    <a href="index.html">Home</a>
+    <div class="nav-dropdown">
+      <span class="nav-label active">Books</span>
+      <div class="dropdown-menu">
+        <a href="honeyblade.html">Honeyblade Duology</a>
+        <a href="veil-trilogy.html">The Veil Trilogy</a>
+        <a href="glassmakers-war.html">Glassmaker's War</a>
+        <a href="silence-of-vara.html">The Silence of Vara</a>
+      </div>
+    </div>
+    <a href="https://www.amazon.com/stores/author/B0H2F5CYK8/allbooks" target="_blank">Store</a>
+    <a href="connect.html">Stay Connected</a>
+    <a href="about.html">About</a>
+  </nav>
+</header>
+
+<section class="series-header">
+  <h1>The Silence of Vara</h1>
+  <span class="kicker">Book One Out Now</span>
+</section>
+
+<section class="book-block">
+  <div class="book-inner">
+
+    <div class="cover-slot">
+      <!-- swap this for your real cover once it's ready -->
+      <img src="images/silence-of-vara-book-one-cover.png" alt="The Silence of Vara book cover" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+      <div class="cover-placeholder" style="display:none;">Cover coming soon</div>
+    </div>
+
+    <div class="book-copy">
+      <h2 class="title">The Silence of Vara</h2>
+      <div class="book-label">Book One</div>
+
+      <p class="blurb">
+        For fifteen years, high priestess Vara has been the one thing a fractured empire feared — because the
+        gods spoke through her, and her prophecies ended massacres and held a fragile peace together.
+        Then the voices stopped. Three years into a silence no one else knows about, Vara is governing on memory,
+        instinct, and the terrifying question of whether she was ever truly chosen at all — when a stranger
+        arrives from the ruins of the war, claiming the gods have chosen him instead.
+        [replace with your full blurb here]
+      </p>
+
+      <div class="vibes-line">
+        🔮 Is she chosen, or has she just gotten good at guessing?<br>
+        👑 Empire on the edge of war<br>
+        🕯️ Slow-burn political tension, not romance<br>
+        ⚖️ Faith as a weapon, wielded by everyone<br>
+      </div>
+
+      <p class="tagline">
+        In this Dune-inspired political fantasy, expect a fractured theocratic empire, a prophet who no longer believes her own myth, and a quiet, devastating reckoning with what belief actually costs.
+      </p>
+
+      <div class="cta-row">
+        <a href="#" target="_blank" class="cta cta-primary">
+          Find it on Amazon
+        </a>
+        <a href="#" target="_blank" class="cta cta-secondary">
+          Signed Copy
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="book-block tint-ashviolet">
+  <div class="book-inner">
+
+    <div class="cover-slot">
+      <!-- swap this for your real cover once it's ready -->
+      <img src="images/silence-of-vara-book-two-cover.png" alt="The God He Made book cover" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+      <div class="cover-placeholder" style="display:none;">Cover coming soon</div>
+    </div>
+
+    <div class="book-copy">
+      <h2 class="title">The God He Made</h2>
+      <div class="book-label">Book Two</div>
+
+      <p class="blurb">
+        Kael rules now, and the peace has held — built on a belief Vara half-invented and can never take back.
+        But what they built together has outgrown them both: temples, orthodoxy, inquisitors enforcing
+        interpretations of prophecies that were never meant to be certain. When someone else claims to hear
+        the gods, contradicting everything Kael has built, Vara recognizes the moment instantly. She's seen it
+        before. She was it, once.
+        [replace with your full blurb here]
+      </p>
+
+      <div class="vibes-line">
+        🔮 The maker confronts what she made<br>
+        👑 An empire built on belief starts to crack<br>
+        🕯️ Slow-burn political tension, not romance<br>
+        ⚖️ Faith as a weapon, wielded by everyone<br>
+      </div>
+
+      <p class="tagline">
+        In the conclusion to this Dune-inspired duology, expect an institution outgrowing its founders, a true believer with too much power, and an ending that finally lets its prophet make peace with not knowing.
+      </p>
+
+      <div class="cta-row">
+        <a href="#" target="_blank" class="cta cta-primary">
+          Find it on Amazon
+        </a>
+        <a href="#" target="_blank" class="cta cta-secondary">
+          Signed Copy
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="coming-soon">
+  <div class="coming-soon-inner">
+    <span class="coming-soon-badge">Stay in the loop</span>
+    <h2>More from Aethari, straight to your inbox.</h2>
+    <p>Sign up to the newsletter for exclusive updates, cover reveals, and ARC signups before anyone else hears about it.</p>
+    <a href="connect.html" class="cta cta-secondary">Join the Newsletter</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-brand-block">
+    <div class="brand">A.M. Marklund</div>
+    <div class="copyright">© 2026 A.M. Marklund. All rights reserved.</div>
+  </div>
+  <nav class="links">
+    <a href="index.html">Home</a>
+    <a href="honeyblade.html">Books</a>
+    <a href="https://www.amazon.com/stores/author/B0H2F5CYK8/allbooks" target="_blank">Store</a>
+    <a href="connect.html">Stay Connected</a>
+    <a href="about.html">About</a>
+  </nav>
+</footer>
+
+<script>
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+
+  navToggle.addEventListener('click', () => {
+    const isOpen = navLinks.classList.toggle('open');
+    navToggle.classList.toggle('is-open', isOpen);
+    navToggle.setAttribute('aria-expanded', isOpen);
+  });
+
+  navLinks.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      navToggle.classList.remove('is-open');
+      navToggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+</script>
+</body>
+</html>
