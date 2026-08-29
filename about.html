@@ -199,13 +199,15 @@
   }
 
   section.about-split{
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(180px, 34%);
     min-height: calc(100vh - 79px);
+    display:flex;
+    justify-content:center;
   }
 
   .about-copy{
-    padding: 5vw 6vw;
+    padding: 5vw 6vw 6vw;
+    max-width: 640px;
+    width: 100%;
     display:flex;
     flex-direction:column;
     justify-content:center;
@@ -274,30 +276,8 @@
   .about-copy .contact-block a.email:hover{ border-color: var(--burgundy); }
   .about-copy .contact-block{ margin-bottom: 1.4rem; }
 
-  .about-photo{
-    position: relative;
-    background: var(--navy);
-    min-height: 320px;
-    overflow: hidden;
-  }
-  .about-photo img{
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    height: 100%;
-    width: auto;
-    max-width: none;
-    object-fit: cover;
-    display: block;
-  }
-
   @media (max-width: 880px){
     .about-copy{ padding: 8vw 6vw; }
-  }
-  @media (max-width: 560px){
-    section.about-split{
-      grid-template-columns: minmax(0, 1fr) minmax(120px, 26%);
-    }
   }
 </style>
 </head>
@@ -362,10 +342,6 @@
       <p>To contact me about my books, to working together, or anything else, please don't hesitate to email me:</p>
       <p><a class="email" href="mailto:marklundbooks@gmail.com">marklundbooks@gmail.com</a></p>
     </div>
-  </div>
-
-  <div class="about-photo">
-    <img src="images/erasebg-transformed.png" alt="A.M. Marklund">
   </div>
 
 </section>
