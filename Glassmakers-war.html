@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Glassmaker's War — A.M. Marklund</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Zilla+Slab:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* shared site skeleton — matches Honeyblade & Veil Trilogy */
+    --navy: #1b2030;
+    --navy-light: #262d42;
+    --cream: #f4ede2;
+    --cream-dim: #f4ede2cc;
+    --ink: #1a1610;
+    --line: rgba(244,237,226,0.18);
+
+    /* Glassmaker's War signature palette — industrial, molten, oxidized */
+    --smoke: #c7c2b8;
+    --amber: #c98a3d;
+    --amber-deep: #7a4f1f;
+    --amber-dim: #c98a3dcc;
+
+    /* per-book tints within the same family */
+    --verdigris: #5c8b7a;
+    --verdigris-deep: #33544a;
+    --ash-red: #9c4f42;
+    --ash-red-deep: #5c2c24;
+  }
+
+  .tint-verdigris .title{ color: var(--verdigris); }
+  .tint-verdigris .cta-primary{ background: var(--verdigris-deep); }
+  .tint-verdigris .cover-placeholder{ color: var(--verdigris); }
+
+  .tint-ashred .title{ color: var(--ash-red); }
+  .tint-ashred .cta-primary{ background: var(--ash-red-deep); }
+  .tint-ashred .cover-placeholder{ color: var(--ash-red); }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+
+  body{
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'EB Garamond', serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a{ color:inherit; text-decoration:none; }
+
+  header.nav{
+    background: var(--navy);
+    color: var(--cream);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding: 22px 5vw;
+    position: relative;
+    z-index: 10;
+  }
+
+  .brand{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    font-family:'Cormorant Garamond', serif;
+    font-size: 1.05rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+  }
+
+  .brand svg{ width:34px; height:34px; flex-shrink:0; }
+
+  nav.links{
+    display:flex;
+    gap: 38px;
+    font-size: 0.95rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-family: 'EB Garamond', serif;
+  }
+
+  nav.links a{
+    opacity: 0.85;
+    border-bottom: 1px solid transparent;
+    padding-bottom: 4px;
+    transition: opacity .2s, border-color .2s;
+  }
+  nav.links a:hover, nav.links a:focus-visible{
+    opacity: 1;
+    border-color: var(--amber);
+  }
+  nav.links a.active{
+    border-color: var(--cream);
+  }
+
+  .nav-dropdown{ position: relative; }
+
+  .dropdown-menu{
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin-top: 14px;
+    background: var(--navy-light);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 10px 0;
+    min-width: 220px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-6px);
+    transition: opacity .15s ease, transform .15s ease, visibility .15s ease;
+    z-index: 20;
+  }
+
+  .dropdown-menu a{
+    display: block;
+    padding: 9px 22px;
+    font-size: 0.85rem;
+    letter-spacing: 0.06em;
+    text-transform: none;
+    opacity: 0.85;
+    white-space: nowrap;
+  }
+
+  .dropdown-menu a:hover{
+    opacity: 1;
+    color: var(--amber);
+  }
+
+  .nav-dropdown:hover .dropdown-menu{
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .nav-dropdown .nav-label{
+    display: inline-block;
+    opacity: 0.85;
+    border-bottom: 1px solid transparent;
+    padding-bottom: 4px;
+    cursor: default;
+  }
+  .nav-dropdown .nav-label.active{
+    border-color: var(--cream);
+  }
+
+  .nav-toggle{
+    display:none;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    gap:5px;
+    width:32px;
+    height:28px;
+    background:none;
+    border:none;
+    cursor:pointer;
+    padding:0;
+  }
+  .nav-toggle .bar{
+    display:block;
+    height:2px;
+    width:24px;
+    background: var(--cream);
+    transition: transform .2s ease, opacity .2s ease;
+  }
+  .nav-toggle.is-open .bar:nth-child(1){ transform: translateY(7px) rotate(45deg); }
+  .nav-toggle.is-open .bar:nth-child(2){ opacity:0; }
+  .nav-toggle.is-open .bar:nth-child(3){ transform: translateY(-7px) rotate(-45deg); }
+
+  section.series-header{
+    background: var(--navy);
+    padding: 4vw 5vw 1.5vw;
+    text-align: center;
+    position: relative;
+  }
+
+  .series-header h1{
+    font-family:'Zilla Slab', serif;
+    font-weight:700;
+    color: var(--smoke);
+    font-size: clamp(2rem, 4.4vw, 3.4rem);
+    letter-spacing: 0.01em;
+  }
+
+  .series-header .kicker{
+    display:block;
+    margin-top: 0.6rem;
+    font-family: 'EB Garamond', serif;
+    font-style: italic;
+    font-size: 0.95rem;
+    letter-spacing: 0.08em;
+    color: var(--amber-dim);
+  }
+
+  section.book-block{
+    background: var(--navy);
+    padding: 2vw 5vw 6vw;
+  }
+
+  .book-inner{
+    display:grid;
+    grid-template-columns: minmax(220px, 340px) minmax(0, 640px);
+    gap: 6vw;
+    align-items:start;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .cover-slot{
+    grid-column: 1;
+    width: 100%;
+    aspect-ratio: 2/3;
+    overflow: visible;
+    background: var(--navy-light);
+    border: 1px solid var(--line);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+
+  .cover-slot img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
+
+  .cover-slot .cover-placeholder{
+    color: var(--amber-dim);
+    font-family: 'Zilla Slab', serif;
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-align: center;
+    padding: 2rem;
+  }
+
+  .book-copy{
+    grid-column: 2;
+  }
+
+  .book-copy .title{
+    font-family:'Zilla Slab', serif;
+    font-weight:700;
+    color: var(--amber);
+    font-size: clamp(2rem, 4vw, 2.9rem);
+    line-height: 1.1;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.005em;
+  }
+
+  .book-label{
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--smoke);
+    margin-bottom: 1.3rem;
+  }
+
+  .book-copy .blurb{
+    color: var(--cream-dim);
+    font-size: 1.02rem;
+    line-height: 1.65;
+    margin-bottom: 1.5rem;
+  }
+
+  .vibes-line{
+    color: var(--cream-dim);
+    font-size: 1rem;
+    line-height: 2;
+    margin-bottom: 1.5rem;
+  }
+
+  .tagline{
+    font-style: italic;
+    color: var(--cream-dim);
+    font-size: 0.98rem;
+    line-height: 1.6;
+    margin-bottom: 1.8rem;
+  }
+
+  .cta-row{
+    display:flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .cta{
+    padding: 12px 30px;
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    border: 1px solid transparent;
+    border-radius: 40px;
+    cursor: pointer;
+    transition: transform .15s ease, box-shadow .15s ease;
+    display:inline-block;
+  }
+  .cta:hover{ transform: translateY(-1px); }
+  .cta-secondary{
+    background: var(--navy-light);
+    color: var(--cream);
+    border: 1px solid var(--line);
+  }
+  .cta-primary{
+    background: var(--amber-deep);
+    color: var(--cream);
+  }
+
+  section.coming-soon{
+    background: var(--navy);
+    padding: 0 5vw 6vw;
+  }
+
+  .coming-soon-inner{
+    max-width: 1200px;
+    margin: 0 auto;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 3vw 4vw;
+    text-align: center;
+  }
+
+  .coming-soon-badge{
+    display: inline-block;
+    font-family: 'Zilla Slab', serif;
+    font-weight: 600;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--amber);
+    border: 1px solid var(--amber);
+    border-radius: 40px;
+    padding: 6px 18px;
+    margin-bottom: 1.2rem;
+  }
+
+  .coming-soon h2{
+    font-family:'Zilla Slab', serif;
+    font-weight: 700;
+    color: var(--cream);
+    font-size: clamp(1.5rem, 2.8vw, 2.1rem);
+    margin-bottom: 0.9rem;
+  }
+
+  .coming-soon p{
+    color: var(--cream-dim);
+    font-size: 1rem;
+    line-height: 1.65;
+    max-width: 480px;
+    margin: 0 auto 1.8rem;
+  }
+
+  .coming-soon .cta{
+    background: var(--amber-deep);
+    color: var(--cream);
+  }
+
+  footer{
+    background: var(--navy);
+    border-top: 1px solid var(--line);
+    padding: 1.6rem 5vw 2.2rem;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    flex-wrap: wrap;
+    gap: 1.2rem;
+    color: var(--cream);
+  }
+  footer .brand{ font-size: 0.9rem; letter-spacing: 0.08em; }
+  footer nav.links{ font-size: 0.82rem; gap: 26px; }
+
+  .footer-brand-block{
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .copyright{
+    font-size: 0.72rem;
+    letter-spacing: 0.02em;
+    text-transform: none;
+    color: var(--cream-dim);
+  }
+
+  @media (max-width: 880px){
+    .book-inner{
+      display: flex;
+      flex-direction: column;
+      text-align:center;
+    }
+    .cover-slot{
+      order: 1;
+      max-width: 320px;
+      width: 100%;
+      margin: 0 auto 2rem;
+    }
+    .book-copy{
+      order: 2;
+    }
+    .cta-row{
+      justify-content:center;
+    }
+    footer{ flex-direction:column; text-align:center; }
+  }
+
+  @media (max-width: 880px){
+    header.nav{ position:relative; }
+
+    .nav-toggle{ display:flex; }
+
+    nav.links{
+      display:none;
+      position:absolute;
+      top:100%;
+      left:0;
+      right:0;
+      flex-direction:column;
+      align-items:center;
+      gap: 22px;
+      background: var(--navy);
+      padding: 26px 5vw 32px;
+      border-top: 1px solid var(--line);
+      box-shadow: 0 16px 28px rgba(0,0,0,0.3);
+      z-index: 15;
+    }
+
+    nav.links.open{ display:flex; }
+
+    .nav-dropdown{ text-align:center; }
+
+    .nav-dropdown .dropdown-menu{
+      position: static;
+      opacity:1;
+      visibility:visible;
+      transform:none;
+      background:transparent;
+      border:none;
+      padding: 8px 0 0;
+      min-width: 0;
+    }
+    .nav-dropdown .dropdown-menu a{
+      padding: 6px 0;
+      font-size: 0.8rem;
+      opacity: 0.75;
+    }
+  }
+
+  @media (max-width: 480px){
+    nav.links{ font-size: 0.8rem; gap: 12px 16px; }
+    .coming-soon-inner{ padding: 8vw 6vw; }
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="brand">
+    <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="24" cy="24" r="22.5" stroke="#f4ede2" stroke-width="1.2"/>
+      <text x="24" y="30" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="20" fill="#f4ede2">AM</text>
+    </svg>
+    A.M. Marklund
+  </div>
+  <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navLinks">
+    <span class="bar"></span>
+    <span class="bar"></span>
+    <span class="bar"></span>
+  </button>
+  <nav class="links" id="navLinks">
+    <a href="index.html">Home</a>
+    <div class="nav-dropdown">
+      <span class="nav-label active">Books</span>
+      <div class="dropdown-menu">
+        <a href="honeyblade.html">Honeyblade Duology</a>
+        <a href="veil-trilogy.html">The Veil Trilogy</a>
+        <a href="glassmakers-war.html">Glassmaker's War</a>
+      </div>
+    </div>
+    <a href="https://www.amazon.com/stores/author/B0H2F5CYK8/allbooks" target="_blank">Store</a>
+    <a href="connect.html">Stay Connected</a>
+    <a href="about.html">About</a>
+  </nav>
+</header>
+
+<section class="series-header">
+  <h1>Glassmaker's War</h1>
+  <span class="kicker">Book One Out Now</span>
+</section>
+
+<section class="book-block">
+  <div class="book-inner">
+
+    <div class="cover-slot">
+      <!-- swap this for your real cover once it's ready -->
+      <img src="images/glassmakers-war-book-one-cover.png" alt="Book One cover" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+      <div class="cover-placeholder" style="display:none;">Cover coming soon</div>
+    </div>
+
+    <div class="book-copy">
+      <h2 class="title">Book One Title</h2>
+      <div class="book-label">Book One</div>
+
+      <p class="blurb">
+        In the city of Vitria, memory is currency, and Cassian Veyr is one of its best illicit dealers —
+        a glassmaker skilled enough to steal a truth from someone's mind and leave them none the wiser.
+        When a black-market job spirals out of his control, he's pulled into a game between the rebellion,
+        the Guild, and a government that would rather rewrite history than answer for it.
+        [replace with your full blurb here]
+      </p>
+
+      <div class="vibes-line">
+        🖤 Morally gray MC<br>
+        🔥 Enemies to allies<br>
+        🏙️ Political intrigue and a criminal underworld<br>
+        🪞 Dual POV<br>
+      </div>
+
+      <p class="tagline">
+        In this gritty fantasy, expect a morally complicated underworld, a city built on stolen memories, and a slow reckoning between the people who rule it and the ones who survive beneath it.
+      </p>
+
+      <div class="cta-row">
+        <a href="#" target="_blank" class="cta cta-primary">
+          Find it on Amazon
+        </a>
+        <a href="#" target="_blank" class="cta cta-secondary">
+          Signed Copy
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="book-block tint-verdigris">
+  <div class="book-inner">
+
+    <div class="cover-slot">
+      <!-- swap this for your real cover once it's ready -->
+      <img src="images/glassmakers-war-book-two-cover.png" alt="Book Two cover" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+      <div class="cover-placeholder" style="display:none;">Cover coming soon</div>
+    </div>
+
+    <div class="book-copy">
+      <h2 class="title">Book Two Title</h2>
+      <div class="book-label">Book Two</div>
+
+      <p class="blurb">
+        The lies Cassian told to survive are starting to unravel, and the people he trusted most are the
+        ones with the most to lose if the truth surfaces. As the rebellion fractures and the Guild tightens
+        its grip, he'll have to decide how much of himself he's willing to erase to keep everyone else standing.
+        [replace with your full blurb here]
+      </p>
+
+      <div class="vibes-line">
+        🖤 Morally gray MC<br>
+        🔥 Enemies to allies<br>
+        🏙️ Political intrigue and a criminal underworld<br>
+        🪞 Dual POV<br>
+      </div>
+
+      <p class="tagline">
+        In this gritty fantasy, expect a morally complicated underworld, a city built on stolen memories, and a slow reckoning between the people who rule it and the ones who survive beneath it.
+      </p>
+
+      <div class="cta-row">
+        <a href="#" target="_blank" class="cta cta-primary">
+          Find it on Amazon
+        </a>
+        <a href="#" target="_blank" class="cta cta-secondary">
+          Signed Copy
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="book-block tint-ashred">
+  <div class="book-inner">
+
+    <div class="cover-slot">
+      <!-- swap this for your real cover once it's ready -->
+      <img src="images/glassmakers-war-book-three-cover.png" alt="Book Three cover" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+      <div class="cover-placeholder" style="display:none;">Cover coming soon</div>
+    </div>
+
+    <div class="book-copy">
+      <h2 class="title">Book Three Title</h2>
+      <div class="book-label">Book Three</div>
+
+      <p class="blurb">
+        Vitria is on the edge of collapse, and Cassian is the only one who knows exactly how it happened —
+        because he built it that way. With the Guild, the government, and the people he loves all demanding
+        the truth, he'll finally have to choose whose memory of him survives.
+        [replace with your full blurb here]
+      </p>
+
+      <div class="vibes-line">
+        🖤 Morally gray MC<br>
+        🔥 Enemies to allies<br>
+        🏙️ Political intrigue and a criminal underworld<br>
+        🪞 Dual POV<br>
+      </div>
+
+      <p class="tagline">
+        In this gritty fantasy, expect a morally complicated underworld, a city built on stolen memories, and a slow reckoning between the people who rule it and the ones who survive beneath it.
+      </p>
+
+      <div class="cta-row">
+        <a href="#" target="_blank" class="cta cta-primary">
+          Find it on Amazon
+        </a>
+        <a href="#" target="_blank" class="cta cta-secondary">
+          Signed Copy
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="coming-soon">
+  <div class="coming-soon-inner">
+    <span class="coming-soon-badge">Stay in the loop</span>
+    <h2>More from Vitria, straight to your inbox.</h2>
+    <p>Sign up to the newsletter for exclusive updates, cover reveals, and ARC signups before anyone else hears about it.</p>
+    <a href="connect.html" class="cta cta-secondary">Join the Newsletter</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-brand-block">
+    <div class="brand">A.M. Marklund</div>
+    <div class="copyright">© 2026 A.M. Marklund. All rights reserved.</div>
+  </div>
+  <nav class="links">
+    <a href="index.html">Home</a>
+    <a href="honeyblade.html">Books</a>
+    <a href="https://www.amazon.com/stores/author/B0H2F5CYK8/allbooks" target="_blank">Store</a>
+    <a href="connect.html">Stay Connected</a>
+    <a href="about.html">About</a>
+  </nav>
+</footer>
+
+<script>
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+
+  navToggle.addEventListener('click', () => {
+    const isOpen = navLinks.classList.toggle('open');
+    navToggle.classList.toggle('is-open', isOpen);
+    navToggle.setAttribute('aria-expanded', isOpen);
+  });
+
+  navLinks.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      navToggle.classList.remove('is-open');
+      navToggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+</script>
+</body>
+</html>
