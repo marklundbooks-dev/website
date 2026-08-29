@@ -74,6 +74,9 @@
     opacity: 1;
     border-color: var(--gold);
   }
+  nav.links a.active{
+    border-color: var(--cream);
+  }
 
   .nav-dropdown{ position: relative; }
 
@@ -107,9 +110,78 @@
   .dropdown-menu a:hover{ opacity: 1; color: var(--gold); }
   .nav-dropdown:hover .dropdown-menu{ opacity: 1; visibility: visible; transform: translateY(0); }
 
+  .nav-dropdown .nav-label{
+    display: inline-block;
+    opacity: 0.85;
+    border-bottom: 1px solid transparent;
+    padding-bottom: 4px;
+    cursor: default;
+  }
+
+  .nav-toggle{
+    display:none;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    gap:5px;
+    width:32px;
+    height:28px;
+    background:none;
+    border:none;
+    cursor:pointer;
+    padding:0;
+  }
+  .nav-toggle .bar{
+    display:block;
+    height:2px;
+    width:24px;
+    background: var(--cream);
+    transition: transform .2s ease, opacity .2s ease;
+  }
+  .nav-toggle.is-open .bar:nth-child(1){ transform: translateY(7px) rotate(45deg); }
+  .nav-toggle.is-open .bar:nth-child(2){ opacity:0; }
+  .nav-toggle.is-open .bar:nth-child(3){ transform: translateY(-7px) rotate(-45deg); }
+
   @media (max-width: 880px){
-    header.nav{ flex-direction:column; gap: 16px; }
-    nav.links{ gap: 18px; flex-wrap: wrap; justify-content:center; }
+    header.nav{ position:relative; }
+
+    .nav-toggle{ display:flex; }
+
+    nav.links{
+      display:none;
+      position:absolute;
+      top:100%;
+      left:0;
+      right:0;
+      flex-direction:column;
+      align-items:center;
+      gap: 22px;
+      background: var(--navy);
+      padding: 26px 5vw 32px;
+      border-top: 1px solid var(--line);
+      box-shadow: 0 16px 28px rgba(0,0,0,0.3);
+      z-index: 15;
+    }
+
+    nav.links.open{ display:flex; }
+
+    .nav-dropdown{ text-align:center; }
+
+    .nav-dropdown .dropdown-menu{
+      position: static;
+      opacity:1;
+      visibility:visible;
+      transform:none;
+      background:transparent;
+      border:none;
+      padding: 8px 0 0;
+      min-width: 0;
+    }
+    .nav-dropdown .dropdown-menu a{
+      padding: 6px 0;
+      font-size: 0.8rem;
+      opacity: 0.75;
+    }
   }
   @media (max-width: 480px){
     nav.links{ font-size: 0.8rem; gap: 12px 16px; }
@@ -298,10 +370,15 @@
     </svg>
     A.M. Marklund
   </div>
-  <nav class="links">
+  <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navLinks">
+    <span class="bar"></span>
+    <span class="bar"></span>
+    <span class="bar"></span>
+  </button>
+  <nav class="links" id="navLinks">
     <a href="index.html">Home</a>
     <div class="nav-dropdown">
-      <a href="honeyblade.html">Books</a>
+      <span class="nav-label">Books</span>
       <div class="dropdown-menu">
         <a href="honeyblade.html">Honeyblade Duology</a>
       </div>
@@ -346,7 +423,7 @@
       <input type="email" name="email_address" id="bonus-email" placeholder="EMAIL" required>
       <p class="helper-text">Provide your email address to receive the chapters. e.g. abc@xyz.com</p>
       <button type="submit" id="bonus-submit-btn">Send Me the Chapters</button>
-      <div id="bonus-message" style="margin-top:10px; font-size:0.85rem;"></div>
+      <div id="bonus-message" style="margin-top:14px; font-size:0.85rem; max-width:420px; margin-left:auto; margin-right:auto; line-height:1.5;"></div>
     </form>
   </div>
 </section>
@@ -368,6 +445,23 @@
 </footer>
 
 <script>
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+
+  navToggle.addEventListener('click', () => {
+    const isOpen = navLinks.classList.toggle('open');
+    navToggle.classList.toggle('is-open', isOpen);
+    navToggle.setAttribute('aria-expanded', isOpen);
+  });
+
+  navLinks.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      navToggle.classList.remove('is-open');
+      navToggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+
   const bonusForm = document.getElementById('bonus-form');
   const bonusBtn = document.getElementById('bonus-submit-btn');
   const bonusMsg = document.getElementById('bonus-message');
@@ -398,7 +492,7 @@
     .then(data => {
       bonusBtn.textContent = "Check your inbox!";
       bonusMsg.style.color = '#2e5c33';
-      bonusMsg.textContent = "Confirm your email to get the chapters.";
+      bonusMsg.innerHTML = "Almost done! <strong>Check your spam/junk folder</strong> - confirmation emails often land there. Mark it \"not spam\" so the bonus chapters (and future newsletters) go straight to your inbox.";
       bonusForm.reset();
     })
     .catch(error => {
