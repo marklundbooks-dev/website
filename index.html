@@ -340,6 +340,27 @@
     font-size: 0.98rem;
   }
 
+  .field{
+    max-width: 420px;
+    margin: 0 auto 14px;
+  }
+  .field input{
+    width:100%;
+    padding: 12px 14px;
+    border: 1px solid #cfc3af;
+    border-radius: 2px;
+    font-family:'EB Garamond', serif;
+    font-size: 0.95rem;
+    background: #fff;
+  }
+  .field input::placeholder{ color:#9b9284; letter-spacing:0.04em; }
+  .field .hint{
+    text-align:left;
+    font-size: 0.72rem;
+    color: #8a8175;
+    margin-top: 6px;
+  }
+
   .subscribe-btn{
     margin-top: 6px;
     background: var(--ink);
@@ -580,13 +601,14 @@
     <div class="newsletter-card">
       <h2>Join the Newsletter</h2>
       <p class="desc">Subscribe to my newsletter for monthly updates, notifications of new releases, and early ARCs and cover reveals. I send one email a month (except for release) and no spam, ever!</p>
-      <!--
-        This card previously had a raw <form> with no action/method — submitting it did nothing
-        (it just reloaded the page). Until you paste in your real Kit embed code (Kit dashboard →
-        Forms → your form → Embed → HTML), this button sends people to connect.html, which is
-        already correctly wired up to Kit.
-      -->
-      <a href="connect.html" class="subscribe-btn">Subscribe</a>
+      <form id="newsletter-form">
+        <div class="field">
+          <input type="email" name="email_address" id="nl-email" placeholder="EMAIL" required>
+          <div class="hint">Provide your email address to subscribe. For e.g abc@xyz.com</div>
+        </div>
+        <button class="subscribe-btn" type="submit" id="nl-submit-btn">Subscribe</button>
+        <div id="nl-message" style="margin-top:10px; font-size:0.85rem;"></div>
+      </form>
     </div>
   </div>
 </section>
@@ -647,6 +669,47 @@
       navLinks.classList.remove('open');
       navToggle.classList.remove('is-open');
       navToggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  const newsletterForm = document.getElementById('newsletter-form');
+  const nlBtn = document.getElementById('nl-submit-btn');
+  const nlMsg = document.getElementById('nl-message');
+
+  newsletterForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const formId = '9653026';
+    const apiKey = 'Z5mWQXlTlT_0gdsSmKkw1g';
+    const email = document.getElementById('nl-email').value;
+
+    nlBtn.disabled = true;
+    nlBtn.textContent = 'Subscribing...';
+    nlMsg.textContent = '';
+
+    fetch(`https://api.convertkit.com/v3/forms/${formId}/subscribe`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        api_key: apiKey,
+        email: email
+      })
+    })
+    .then(response => response.json())
+    .then(data => {
+      nlBtn.textContent = "Check your inbox!";
+      nlMsg.style.color = '#2e5c33';
+      nlMsg.textContent = "Confirm your email to complete your subscription.";
+      newsletterForm.reset();
+    })
+    .catch(error => {
+      nlBtn.disabled = false;
+      nlBtn.textContent = 'Subscribe';
+      nlMsg.style.color = '#a8461f';
+      nlMsg.textContent = 'Something went wrong — please try again.';
     });
   });
 </script>
