@@ -118,6 +118,17 @@
     transform: translateY(0);
   }
 
+  .nav-dropdown .nav-label{
+    display: inline-block;
+    opacity: 0.85;
+    border-bottom: 1px solid transparent;
+    padding-bottom: 4px;
+    cursor: default;
+  }
+  .nav-dropdown .nav-label.active{
+    border-color: var(--cream);
+  }
+
   .nav-toggle{
     display:none;
     flex-direction:column;
@@ -424,7 +435,7 @@
   <nav class="links" id="navLinks">
     <a href="index.html">Home</a>
     <div class="nav-dropdown">
-      <a href="honeyblade.html" class="active">Books</a>
+      <span class="nav-label active">Books</span>
       <div class="dropdown-menu">
         <a href="honeyblade.html">Honeyblade Duology</a>
       </div>
