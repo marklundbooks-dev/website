@@ -607,7 +607,7 @@
           <div class="hint">Provide your email address to subscribe. For e.g abc@xyz.com</div>
         </div>
         <button class="subscribe-btn" type="submit" id="nl-submit-btn">Subscribe</button>
-        <div id="nl-message" style="margin-top:10px; font-size:0.85rem;"></div>
+        <div id="nl-message" style="margin-top:14px; font-size:0.92rem; max-width:420px; margin-left:auto; margin-right:auto; line-height:1.5;"></div>
       </form>
     </div>
   </div>
@@ -702,7 +702,7 @@
     .then(data => {
       nlBtn.textContent = "Check your inbox!";
       nlMsg.style.color = '#2e5c33';
-      nlMsg.textContent = "Confirm your email to complete your subscription.";
+      nlMsg.innerHTML = "Almost done! <strong>Check your spam/junk folder</strong> — confirmation emails often land there. Mark it \"not spam\" so future newsletters go straight to your inbox.";
       newsletterForm.reset();
     })
     .catch(error => {
