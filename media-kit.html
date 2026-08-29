@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Press Kit — A.M. Marklund</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy: #1b2030;
+    --navy-light: #262d42;
+    --terracotta-1: #d97a3f;
+    --cream: #f4ede2;
+    --cream-dim: #f4ede2cc;
+    --ink: #1a1610;
+    --gold: #c9a15a;
+    --line: rgba(244,237,226,0.18);
+    --placeholder-line: #b8461f66;
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+
+  body{
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'EB Garamond', serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a{ color:inherit; text-decoration:none; }
+
+  header.nav{
+    background: var(--navy);
+    color: var(--cream);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding: 22px 5vw;
+  }
+
+  .brand{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    font-family:'Cormorant Garamond', serif;
+    font-size: 1.05rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+  }
+
+  .brand svg{ width:34px; height:34px; flex-shrink:0; }
+
+  .not-live-note{
+    background: var(--gold);
+    color: var(--navy);
+    text-align: center;
+    font-size: 0.82rem;
+    letter-spacing: 0.04em;
+    padding: 8px 5vw;
+  }
+
+  section.hero{
+    background: var(--navy);
+    padding: 5vw 5vw 3.5vw;
+    text-align: center;
+  }
+
+  .hero h1{
+    font-family:'Cormorant Garamond', serif;
+    font-weight:600;
+    color: var(--cream);
+    font-size: clamp(2.2rem, 4.6vw, 3.4rem);
+    margin-bottom: 0.6rem;
+  }
+
+  .hero .subhead{
+    color: var(--gold);
+    font-style: italic;
+    font-size: 1.05rem;
+    max-width: 560px;
+    margin: 0 auto;
+  }
+
+  main{
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 4vw 5vw 6vw;
+  }
+
+  section.block{
+    margin-bottom: 3.6rem;
+  }
+
+  section.block h2{
+    font-family:'Cormorant Garamond', serif;
+    font-weight: 600;
+    color: var(--terracotta-1);
+    font-size: 1.7rem;
+    margin-bottom: 1.1rem;
+    border-bottom: 1px solid rgba(0,0,0,0.12);
+    padding-bottom: 0.5rem;
+  }
+
+  .placeholder{
+    border: 1px dashed var(--placeholder-line);
+    background: #fffaf3;
+    border-radius: 6px;
+    padding: 1.1rem 1.3rem;
+    font-size: 0.98rem;
+    line-height: 1.6;
+    color: #7a6f60;
+    font-style: italic;
+    margin-bottom: 1rem;
+  }
+  .placeholder:last-child{ margin-bottom: 0; }
+  .placeholder .label{
+    display:block;
+    font-style: normal;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-size: 0.72rem;
+    color: var(--terracotta-1);
+    margin-bottom: 0.4rem;
+  }
+
+  .two-col{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+  }
+
+  .headshot-slot{
+    aspect-ratio: 1/1;
+    max-width: 220px;
+    border: 1px dashed var(--placeholder-line);
+    background: #fffaf3;
+    border-radius: 6px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    color: #7a6f60;
+    font-size: 0.85rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 1rem;
+  }
+
+  .download-row{
+    display:flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+  }
+
+  .download-btn{
+    padding: 10px 24px;
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border-radius: 40px;
+    background: var(--navy);
+    color: var(--cream);
+    display:inline-block;
+  }
+
+  .series-list{
+    display:flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .series-list .series-item{
+    border-left: 3px solid var(--gold);
+    padding: 0.2rem 0 0.2rem 1rem;
+  }
+
+  .series-item .name{
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600;
+    font-size: 1.15rem;
+    color: var(--navy);
+  }
+
+  .series-item .desc{
+    font-size: 0.95rem;
+    color: #4a4236;
+  }
+
+  .talking-points ol{
+    padding-left: 1.3rem;
+    line-height: 2;
+  }
+
+  .fun-facts ul{
+    padding-left: 1.3rem;
+    line-height: 2;
+  }
+
+  .contact-block{
+    background: var(--navy-light);
+    border-radius: 6px;
+    padding: 1.6rem 1.8rem;
+    color: var(--cream);
+  }
+
+  .contact-block .row{
+    display:flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .contact-block .row:last-child{ border-bottom: none; }
+  .contact-block .row .k{
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-size: 0.72rem;
+    color: var(--gold);
+  }
+  .contact-block .row .v{
+    font-style: italic;
+    color: var(--cream-dim);
+  }
+
+  footer{
+    background: var(--navy);
+    border-top: 1px solid var(--line);
+    padding: 1.6rem 5vw 2.2rem;
+    text-align:center;
+    color: var(--cream-dim);
+    font-size: 0.78rem;
+  }
+
+  @media (max-width: 640px){
+    .two-col{ grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="not-live-note">
+  This page is a working draft — not linked in the main site nav yet. Publish it once you've filled in the placeholders below.
+</div>
+
+<header class="nav">
+  <div class="brand">
+    <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="24" cy="24" r="22.5" stroke="#f4ede2" stroke-width="1.2"/>
+      <text x="24" y="30" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="20" fill="#f4ede2">AM</text>
+    </svg>
+    A.M. Marklund
+  </div>
+</header>
+
+<section class="hero">
+  <h1>Press &amp; Media Kit</h1>
+  <p class="subhead">Everything you need for interviews, features, and reviews — bio, book info, and downloadable assets.</p>
+</section>
+
+<main>
+
+  <section class="block">
+    <h2>Author Bio</h2>
+    <div class="placeholder">
+      <span class="label">Short bio (1–2 sentences, for captions/intros)</span>
+      A.M. Marklund is a [genre] author known for [series name]. She lives in [location].
+    </div>
+    <div class="placeholder">
+      <span class="label">Long bio (150–200 words, for full articles)</span>
+      Write in third person. Cover: what you write and why, how you got started, what themes or tropes define your work, where you're based, and one or two personal details that make you memorable (a day job, a pet, a habit). End with what's coming next.
+    </div>
+  </section>
+
+  <section class="block">
+    <h2>Headshot &amp; Assets</h2>
+    <div class="two-col">
+      <div class="headshot-slot">Author headshot<br>(high-res, portrait)</div>
+      <div class="headshot-slot">Author headshot<br>(landscape/wide crop)</div>
+    </div>
+    <div class="download-row">
+      <a href="#" class="download-btn">Download headshots (.zip)</a>
+      <a href="#" class="download-btn">Download logo &amp; brand assets</a>
+    </div>
+  </section>
+
+  <section class="block">
+    <h2>Series Overview</h2>
+    <div class="series-list">
+      <div class="series-item">
+        <div class="name">The Honeyblade Duology</div>
+        <div class="desc">Medieval fantasy romance. Enemies to lovers, court intrigue, false identity. Book One out now, Book Two (Nightshade) coming October 2026.</div>
+      </div>
+      <div class="series-item">
+        <div class="name">The Veil Trilogy</div>
+        <div class="desc">Dark academia fantasy. Socially awkward FMC, found family. In progress.</div>
+      </div>
+      <div class="series-item">
+        <div class="name">Glassmaker's War</div>
+        <div class="desc">Gritty fantasy, morally gray underworld POV. In progress.</div>
+      </div>
+      <div class="series-item">
+        <div class="name">The Silence of Vara</div>
+        <div class="desc">Dune-inspired political fantasy duology. In progress.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <h2>Book Details — Honeyblade</h2>
+    <div class="placeholder">
+      <span class="label">Quick facts</span>
+      Genre: [ ] &nbsp;|&nbsp; Format: [ebook / paperback / hardback / KU] &nbsp;|&nbsp; Release date: 29 July 2026 &nbsp;|&nbsp; Word count: [ ] &nbsp;|&nbsp; Comp titles: [ ] and [ ]
+    </div>
+    <div class="download-row">
+      <a href="#" class="download-btn">Download cover (hi-res)</a>
+      <a href="#" class="download-btn">Download full blurb (.txt)</a>
+    </div>
+  </section>
+
+  <section class="block">
+    <h2>Praise &amp; Press</h2>
+    <div class="placeholder">
+      <span class="label">Leave blank until you have quotes to add</span>
+      Once you have review snippets, blogger quotes, award mentions, or "as seen in" logos, list them here — a short pull-quote plus source name for each (e.g. "A gorgeously tense slow burn." — [Reviewer/Outlet]).
+    </div>
+  </section>
+
+  <section class="block talking-points">
+    <h2>Suggested Interview Topics</h2>
+    <ol>
+      <li>What drew you to writing romantasy, and how did Honeyblade's world come together?</li>
+      <li>[Add a question about your writing process or routine]</li>
+      <li>[Add a question about a theme or trope you're drawn to across your books]</li>
+      <li>[Add a question about world-building — how you approach building a new series]</li>
+      <li>[Add a question about what's next / your publishing plans]</li>
+    </ol>
+  </section>
+
+  <section class="block fun-facts">
+    <h2>Fun Facts</h2>
+    <ul>
+      <li>[A quirky personal detail]</li>
+      <li>[A writing habit or ritual]</li>
+      <li>[Something readers wouldn't guess about you]</li>
+    </ul>
+  </section>
+
+  <section class="block">
+    <h2>Contact</h2>
+    <div class="contact-block">
+      <div class="row"><span class="k">Press &amp; Interview Requests</span><span class="v">[press@yourdomain.com]</span></div>
+      <div class="row"><span class="k">General / Reader Inquiries</span><span class="v">[your general contact email]</span></div>
+      <div class="row"><span class="k">Instagram</span><span class="v">[@yourhandle]</span></div>
+      <div class="row"><span class="k">TikTok</span><span class="v">[@yourhandle]</span></div>
+      <div class="row"><span class="k">Goodreads</span><span class="v">[profile link]</span></div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  © 2026 A.M. Marklund. Press Kit — for media use only.
+</footer>
+
+</body>
+</html>
