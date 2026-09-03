@@ -700,9 +700,9 @@
     })
     .then(response => response.json())
     .then(data => {
-      nlBtn.textContent = "Check your inbox!";
+      nlBtn.textContent = "You're signed up!";
       nlMsg.style.color = '#2e5c33';
-      nlMsg.innerHTML = "Almost done! <strong>Check your spam/junk folder</strong> - confirmation emails often land there. Mark it \"not spam\" so future newsletters go straight to your inbox.";
+      nlMsg.textContent = "Thanks for signing up!";
       newsletterForm.reset();
     })
     .catch(error => {
