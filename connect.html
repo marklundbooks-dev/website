@@ -118,6 +118,17 @@
     transform: translateY(0);
   }
 
+  .nav-dropdown .nav-label{
+    display: inline-block;
+    opacity: 0.85;
+    border-bottom: 1px solid transparent;
+    padding-bottom: 4px;
+    cursor: default;
+  }
+  .nav-dropdown .nav-label.active{
+    border-color: var(--cream);
+  }
+
   .nav-toggle{
     display:none;
     flex-direction:column;
@@ -315,7 +326,7 @@
   <nav class="links" id="navLinks">
     <a href="index.html#home">Home</a>
     <div class="nav-dropdown">
-      <a href="honeyblade.html">Books</a>
+      <span class="nav-label">Books</span>
       <div class="dropdown-menu">
         <a href="honeyblade.html">Honeyblade Duology</a>
       </div>
@@ -328,8 +339,8 @@
 
 <section class="connect-intro">
   <h1>Stay Up To Date</h1>
-  <p>I send monthly newsletters to my subscribers, and I’d love to have you as part of the team. My updates include information on where I’m at in the drafting process for my books, as well as first access to ARC forms and exclusive early cover reveals.</p>
-  <p>As a subscriber, you’ll also receive an email notification on the day of any new book release.</p>
+  <p>I send monthly newsletters to my subscribers, and I'd love to have you as part of the team. My updates include information on where I'm at in the drafting process for my books, as well as first access to ARC forms and exclusive early cover reveals.</p>
+  <p>As a subscriber, you'll also receive an email notification on the day of any new book release.</p>
   <p class="cta-line">Sign up now below!</p>
 </section>
 
@@ -363,7 +374,9 @@
       navToggle.setAttribute('aria-expanded', 'false');
     });
   });
+</script>
 
+<script>
   const nlForm = document.getElementById('newsletter-form');
   const nlBtn = document.getElementById('nl-submit-btn');
   const nlMsg = document.getElementById('nl-message');
