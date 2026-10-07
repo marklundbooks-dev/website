@@ -7,12 +7,19 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Caveat:wght@500;600&display=swap" rel="stylesheet">
+<link rel="preload" href="fonts/StarlightRune.woff2" as="font" type="font/woff2" crossorigin>
 <style>
+  @font-face{
+    font-family: "Starlight Rune";
+    src: url("fonts/StarlightRune.woff2") format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: block;
+  }
+
   :root{
     --navy: #1b2030;
     --navy-light: #262d42;
-    --terracotta-1: #d97a3f;
-    --terracotta-2: #a8461f;
     --burgundy: #7c1f2c;
     --cream: #f4ede2;
     --cream-dim: #f4ede2cc;
@@ -77,7 +84,8 @@
   nav.links a.active{
     border-color: var(--cream);
   }
-	.nav-dropdown{
+
+  .nav-dropdown{
     position: relative;
   }
 
@@ -154,156 +162,65 @@
   .nav-toggle.is-open .bar:nth-child(2){ opacity:0; }
   .nav-toggle.is-open .bar:nth-child(3){ transform: translateY(-7px) rotate(-45deg); }
 
+  /* ---------- HERO: background image + words popping up ---------- */
   section.hero{
-  background: linear-gradient(160deg, #e0904f 0%, var(--terracotta-1) 35%, var(--terracotta-2) 78%, #8a3a1d 100%);
-  padding: 6vw 5vw 7vw;
-  position: relative;
-  overflow:hidden;
-}
-
-.hero-inner{
-  display:grid;
-  grid-template-columns: minmax(220px, 340px) minmax(0, 640px);
-  gap: 6vw;
-  align-items:center;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-  .hero-copy-top{
-    grid-column: 2;
-    grid-row: 1;
-    text-align:center;
-    color: var(--cream);
-    font-style: italic;
-    font-size: 1.15rem;
-    letter-spacing: 0.02em;
-    line-height: 1.6;
-    margin-bottom: 0.5em;
+    min-height: 85vh;
+    min-height: 85svh;           /* stops mobile address-bar jumping */
+    display: grid;
+    place-items: center;
+    padding: 8vw 6vw;
+    background:
+      linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)),   /* dark overlay for readability */
+      url("images/website%20background.jpg") center / cover no-repeat;
   }
 
-  .cover-slot{
-  grid-column: 1;
-  grid-row: 1 / span 2;
-  aspect-ratio: 2/3;
-  border: 2px solid rgba(244,237,226,0.55);
-  border-radius: 2px;
-  background: none;
-  overflow: hidden;
-  box-shadow: 0 18px 40px rgba(0,0,0,0.35);
-  }
-
-  .cover-slot .label{
-    font-family:'Caveat', cursive;
-    font-size: 1.9rem;
-    line-height:1.15;
-  }
-  .cover-slot .sub{
-    margin-top:14px;
-    font-size:0.75rem;
-    letter-spacing:0.15em;
-    text-transform:uppercase;
-    opacity:0.7;
-  }
-	.cover-slot img{
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-    display: block;
-  }
-
-  .hero-main{
-    grid-column: 2;
-    grid-row: 2;
-  }
-
-  .hero-main .title{
-    font-family:'Cormorant Garamond', serif;
-    font-weight:600;
-    color: var(--ink);
-    font-size: clamp(2.6rem, 5.6vw, 4.6rem);
-    line-height: 1.02;
-    text-align:center;
-    letter-spacing: 0.01em;
-  }
-  .hero-main .title .accent{
-    color: var(--burgundy);
-    display:block;
-  }
-
-  .vibes{
-    text-align:center;
-    margin-top: 2.6rem;
-  }
-  .vibes .vibes-label{
-    font-family:'Cormorant Garamond', serif;
-    font-size:1.4rem;
-    color: var(--cream);
-    margin-bottom: 0.9rem;
-  }
-  .vibes ul{
-    list-style:none;
-    color: var(--cream-dim);
-    font-size: 0.98rem;
-    line-height: 1.9;
-  }
-  .vibes .and{
-    font-weight:600;
-    letter-spacing:0.08em;
-    color: var(--cream);
-  }
-  .vibes .divider{
-    height:1px; width:60px;
-    background: rgba(244,237,226,0.4);
-    margin: 1.4rem auto;
-  }
-
-  .release{
-    text-align:center;
-    margin-top: 2.6rem;
-    color: var(--ink);
-  }
-  .release .when{
-    font-family:'Cormorant Garamond', serif;
-    font-size: clamp(1.5rem, 2.4vw, 2rem);
-  }
-  .release .formats{
-    margin-top: 0.6rem;
-    font-size: 0.8rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--cream-dim);
-  }
-
-  .cta-row{
-    display:flex;
-    justify-content:center;
-    gap: 16px;
-    margin-top: 2.2rem;
+  .tagline{
+    display: flex;
     flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.15em 0.4em;
+    max-width: 14em;
+    font-family: "Starlight Rune", "Cormorant Garamond", serif;
+    font-weight: 400;
+    font-size: clamp(2.4rem, 7.5vw, 6rem);
+    line-height: 1.15;
+    text-align: center;
+    color: var(--cream);
+    text-shadow: 0 2px 18px rgba(0,0,0,0.55);
   }
 
-  .cta{
-    padding: 12px 26px;
-    font-size: 0.8rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    border: 1px solid transparent;
-    border-radius: 2px;
-    cursor: pointer;
-    transition: transform .15s ease, box-shadow .15s ease;
-  }
-  .cta:hover{ transform: translateY(-1px); }
-  .cta-primary{
-    background: var(--burgundy);
-    color: var(--cream);
-  }
-  .cta-secondary{
-    background: #24402b;
-    color: var(--cream);
+  .tagline .word{
+    display: inline-block;
+    opacity: 0;
+    transform: scale(0.4) translateY(0.4em);
+    animation: pop 0.55s cubic-bezier(.34,1.56,.64,1) forwards;
+    /* each word waits for the one before it */
+    animation-delay: calc(0.5s + var(--i) * 0.55s);
   }
 
+  @keyframes pop{
+    to{ opacity: 1; transform: scale(1) translateY(0); }
+  }
+
+  /* People who prefer less motion just see the words straight away */
+  @media (prefers-reduced-motion: reduce){
+    .tagline .word{
+      animation: none;
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @media (max-width: 768px){
+    section.hero{
+      background:
+        linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)),
+        url("images/background%20phone.jpg") center / cover no-repeat;
+    }
+    .tagline{ max-width: 9em; }
+  }
+
+  /* ---------- Newsletter ---------- */
   section.newsletter-wrap{
     background: var(--navy);
     padding: 5vw 5vw 4vw;
@@ -375,6 +292,7 @@
     display: inline-block;
   }
 
+  /* ---------- Contact ---------- */
   section.contact{
     background: var(--navy);
     color: var(--cream);
@@ -444,31 +362,7 @@
   footer .brand{ font-size: 0.9rem; }
   footer nav.links{ font-size: 0.82rem; gap: 26px; }
 
-  .ph{
-    outline: 1px dashed rgba(0,0,0,0.25);
-    outline-offset: 3px;
-  }
-
   @media (max-width: 880px){
-    section.hero{
-      text-align:center;
-    }
-    .hero-inner{
-      grid-template-columns: 1fr;
-    }
-    .cover-slot{
-      grid-column: 1;
-      grid-row: 3;
-      background: #3a2418;
-    }
-    .hero-copy-top{
-      grid-column: 1;
-      grid-row: 1;
-    }
-    .hero-main{
-      grid-column: 1;
-      grid-row: 2;
-    }
     footer{ flex-direction:column; text-align:center; }
   }
 
@@ -555,45 +449,17 @@
 </section>
 
 <section class="hero" id="home">
-  <div class="hero-inner">
-
-  <div class="cover-slot">
-  <img src="images/Honeyblade.jpg" alt="Honeyblade book cover">
-</div>
-
-  <div class="hero-main">
-    <h1 class="title">
-      HONEYBLADE
-      <span class="accent">The Honeyblade Duology</span>
-    </h1>
-    <div class="vibes">
-      <div class="vibes-label">vibes:</div>
-      <ul>
-        <li>medieval set fantasy</li>
-        <li class="and">AND</li>
-        <li>romance</li>
-      </ul>
-      <div class="divider"></div>
-      <ul>
-        <li>enemies to lovers</li>
-        <li>court intrigue</li>
-        <li>royal courtship trials and false identity</li>
-        <li>slow burn tension</li>
-      </ul>
-    </div>
-
-    <div class="release">
-      <div class="when">coming July 29th, 2026</div>
-      <div class="formats">in paperback, ebook, and on KU</div>
-    </div>
-
-    <div class="cta-row">
-      <a href="https://www.amazon.com/Honeyblade-Duology-Book-1-ebook/dp/B0H2BWSPKY" target="_blank" class="cta cta-secondary">
-  Find it on Amazon
-</a>
-    </div>
-  </div>
-  </div>
+  <h1 class="tagline" aria-label="What was made to kill will learn to choose">
+    <span class="word" style="--i:0" aria-hidden="true">What</span>
+    <span class="word" style="--i:1" aria-hidden="true">was</span>
+    <span class="word" style="--i:2" aria-hidden="true">made</span>
+    <span class="word" style="--i:3" aria-hidden="true">to</span>
+    <span class="word" style="--i:4" aria-hidden="true">kill</span>
+    <span class="word" style="--i:5" aria-hidden="true">will</span>
+    <span class="word" style="--i:6" aria-hidden="true">learn</span>
+    <span class="word" style="--i:7" aria-hidden="true">to</span>
+    <span class="word" style="--i:8" aria-hidden="true">choose</span>
+  </h1>
 </section>
 
 <section class="newsletter-wrap">
