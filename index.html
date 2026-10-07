@@ -164,11 +164,10 @@
 
   /* ---------- HERO: background image + words popping up ---------- */
   section.hero{
-    min-height: 85vh;
-    min-height: 85svh;           /* stops mobile address-bar jumping */
+    aspect-ratio: 16 / 9;        /* same shape as the desktop image, so the borders never get cropped */
     display: grid;
     place-items: center;
-    padding: 8vw 6vw;
+    padding: 4vw;
     background:
       linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)),   /* dark overlay for readability */
       url("images/website%20background.jpg") center / cover no-repeat;
@@ -226,6 +225,7 @@
 
   @media (max-width: 768px){
     section.hero{
+      aspect-ratio: 9 / 16;      /* same shape as the phone image */
       background:
         linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)),
         url("images/background%20phone.jpg") center / cover no-repeat;
