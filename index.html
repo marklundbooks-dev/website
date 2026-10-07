@@ -176,17 +176,21 @@
 
   .tagline{
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 0.15em 0.4em;
-    max-width: 14em;
+    flex-direction: column;
+    align-items: center;
     font-family: "Starlight Rune", "Cormorant Garamond", serif;
     font-weight: 400;
-    font-size: clamp(2.4rem, 7.5vw, 6rem);
-    line-height: 1.15;
+    font-size: clamp(2.8rem, 9vw, 6.5rem);
+    line-height: 1.2;
     text-align: center;
     color: var(--cream);
     text-shadow: 0 2px 18px rgba(0,0,0,0.55);
+  }
+
+  .tagline .line{
+    display: flex;
+    justify-content: center;
+    gap: 0 0.4em;
   }
 
   .tagline .word{
@@ -226,7 +230,6 @@
         linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)),
         url("images/background%20phone.jpg") center / cover no-repeat;
     }
-    .tagline{ max-width: 9em; }
   }
 
   /* ---------- Newsletter ---------- */
@@ -459,15 +462,11 @@
 
 <section class="hero" id="home">
   <h1 class="tagline" aria-label="What was made to kill will learn to choose">
-    <span class="word" style="--i:0" aria-hidden="true">What</span>
-    <span class="word" style="--i:1" aria-hidden="true">was</span>
-    <span class="word" style="--i:2" aria-hidden="true">made</span>
-    <span class="word" style="--i:3" aria-hidden="true">to</span>
-    <span class="word" style="--i:4" aria-hidden="true">kill</span>
-    <span class="word" style="--i:5" aria-hidden="true">will</span>
-    <span class="word" style="--i:6" aria-hidden="true">learn</span>
-    <span class="word" style="--i:7" aria-hidden="true">to</span>
-    <span class="word" style="--i:8" aria-hidden="true">choose</span>
+    <span class="line"><span class="word" style="--i:0" aria-hidden="true">What</span> <span class="word" style="--i:1" aria-hidden="true">was</span></span>
+    <span class="line"><span class="word" style="--i:2" aria-hidden="true">made</span></span>
+    <span class="line"><span class="word" style="--i:3" aria-hidden="true">to</span> <span class="word" style="--i:4" aria-hidden="true">kill</span></span>
+    <span class="line"><span class="word" style="--i:5" aria-hidden="true">will</span> <span class="word" style="--i:6" aria-hidden="true">learn</span></span>
+    <span class="line"><span class="word" style="--i:7" aria-hidden="true">to</span> <span class="word" style="--i:8" aria-hidden="true">choose</span></span>
   </h1>
 </section>
 
