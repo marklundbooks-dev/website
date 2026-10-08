@@ -236,6 +236,40 @@
     }
   }
 
+  /* ---------- BOOKS: two backgrounds, covers stay the same size ---------- */
+  .books{
+    display: grid;
+    grid-template-columns: 1fr 1fr;   /* two equal halves */
+    height: 590px;                    /* fixed height: the backgrounds zoom/crop, the covers don't */
+  }
+
+  .book{
+    display: grid;
+    place-items: center;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  .book-one{ background-image: url("images/rodvitt.jpg"); }
+  .book-two{ background-image: url("images/blavitt.jpg"); }
+
+  .cover{
+    width: 270px;                     /* stays the same on every screen */
+    height: auto;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.35);
+  }
+
+  /* Phones: stack the two books */
+  @media (max-width: 700px){
+    .books{
+      grid-template-columns: 1fr;
+      height: auto;
+    }
+    .book{ height: 480px; }
+    .cover{ width: 220px; }
+  }
+
   /* ---------- Newsletter ---------- */
   section.newsletter-wrap{
     background: var(--navy);
@@ -471,6 +505,15 @@
     <span class="line" style="--l:2"><span class="word" style="--i:5" aria-hidden="true">will</span> <span class="word" style="--i:6" aria-hidden="true">learn</span> <span class="word" style="--i:7" aria-hidden="true">to</span></span>
     <span class="line" style="--l:3"><span class="word emph" style="--i:8" aria-hidden="true">choose</span></span>
   </h1>
+</section>
+
+<section class="books">
+  <div class="book book-one">
+    <img class="cover" src="images/Honeyblade.jpg" alt="Honeyblade book cover" loading="lazy">
+  </div>
+  <div class="book book-two">
+    <img class="cover" src="images/Nightshade.jpg" alt="Nightshade book cover" loading="lazy">
+  </div>
 </section>
 
 <section class="newsletter-wrap">
