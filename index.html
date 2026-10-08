@@ -325,11 +325,21 @@
     text-shadow: 0 2px 10px rgba(0,0,0,0.5);
   }
 
+  .cover-link{
+    display: block;
+  }
+
   .cover{
     display: block;
     width: 100%;
     height: auto;
     box-shadow: 0 12px 30px rgba(0,0,0,0.35);
+    transition: transform .25s ease;
+  }
+
+  .cover-link:hover .cover,
+  .cover-link:focus-visible .cover{
+    transform: translateY(-5px);
   }
 
   @media (max-width: 700px){
@@ -580,13 +590,13 @@
   <div class="book book-one">
     <div class="cover-wrap">
       <div class="cover-label">Book 1</div>
-      <img class="cover" src="images/Honeyblade.jpg" alt="Honeyblade book cover" loading="lazy">
+      <a class="cover-link" href="https://www.amazon.com/Honeyblade-Duology-Book-1-ebook/dp/B0H2BWSPKY" target="_blank" rel="noopener" aria-label="Honeyblade on Amazon"><img class="cover" src="images/Honeyblade.jpg" alt="Honeyblade book cover" loading="lazy"></a>
     </div>
   </div>
   <div class="book book-two">
     <div class="cover-wrap">
       <div class="cover-label">Book 2</div>
-      <img class="cover" src="images/Nightshade%20small.jpg" alt="Nightshade book cover" loading="lazy">
+      <a class="cover-link" href="https://www.amazon.com/stores/author/B0H2F5CYK8/allbooks" target="_blank" rel="noopener" aria-label="Nightshade on Amazon"><img class="cover" src="images/Nightshade%20small.jpg" alt="Nightshade book cover" loading="lazy"></a>
     </div>
   </div>
 </section>
