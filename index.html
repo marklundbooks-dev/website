@@ -162,14 +162,41 @@
   .nav-toggle.is-open .bar:nth-child(2){ opacity:0; }
   .nav-toggle.is-open .bar:nth-child(3){ transform: translateY(-7px) rotate(-45deg); }
 
+  /* ---------- HERO: background image + words popping up ---------- */
   section.hero{
-    aspect-ratio: 16 / 9;
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    aspect-ratio: 16 / 9;        /* same shape as the desktop image, so the borders never get cropped */
     display: grid;
     place-items: center;
     padding: 4vw;
-    background:
-      linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)),
-      url("images/website%20background.jpg") center / cover no-repeat;
+    background-color: var(--navy);
+  }
+
+  /* the background picture */
+  section.hero::before{
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: url("images/website%20background.jpg") center / cover no-repeat;
+  }
+
+  /* a dark layer on top that slowly fades in and out, so the picture seems to breathe */
+  section.hero::after{
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: #000;
+    opacity: 0.45;
+    animation: glow 6s ease-in-out infinite alternate;
+  }
+
+  @keyframes glow{
+    from{ opacity: 0.45; }
+    to{   opacity: 0.15; }
   }
 
   .tagline{
@@ -183,6 +210,8 @@
     text-align: center;
     color: var(--cream);
     text-shadow: 0 2px 18px rgba(0,0,0,0.55);
+    position: relative;
+    z-index: 1;
   }
 
   .tagline .line{
@@ -192,14 +221,14 @@
   }
 
   .tagline .emph{
-    font-style: italic;
+    font-style: italic;   /* the font has no real italic, so the browser slants it */
   }
 
   .tagline .word{
     display: inline-block;
     opacity: 0;
     animation: focus-in 1.5s cubic-bezier(.33,0,.2,1) both;
-   
+    /* --i = word number, --l = line number (adds a pause between lines) */
     animation-delay: calc(0.5s + var(--i) * 0.45s + var(--l) * 0.9s);
   }
 
@@ -216,8 +245,11 @@
     }
   }
 
-  
+  /* People who prefer less motion just see the words straight away */
   @media (prefers-reduced-motion: reduce){
+    section.hero::after{
+      animation: none;
+    }
     .tagline .word{
       animation: none;
       opacity: 1;
@@ -228,28 +260,30 @@
 
   @media (max-width: 768px){
     section.hero{
-      aspect-ratio: 9 / 16;      
-      background:
-        linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)),
-        url("images/background%20phone.jpg") center / cover no-repeat;
+      aspect-ratio: 9 / 16;      /* same shape as the phone image */
+    }
+    section.hero::before{
+      background-image: url("images/background%20phone.jpg");
     }
   }
 
-  
+  /* ---------- BOOKS: two backgrounds, covers stay the same size ---------- */
   .books{
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    height: 590px;
+    grid-template-columns: 1fr 1fr;   /* two equal halves */
+    height: 590px;                    /* fixed height: the backgrounds zoom/crop, the covers don't */
   }
 
   .book{
     position: relative;
     isolation: isolate;
+    overflow: hidden;                 /* keeps the zooming image inside its box */
     display: grid;
     place-items: center;
-    background-color: var(--navy);
+    background-color: var(--navy);    /* shows through the see-through image */
   }
 
+  /* the background image lives here so we can fade it on its own */
   .book::before{
     content: "";
     position: absolute;
@@ -259,15 +293,30 @@
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    opacity: 0.6;
+    opacity: 0.6;                     /* 1 = solid, lower = more see-through */
+    will-change: transform, opacity;
+    animation: breathe 10s ease-in-out infinite alternate;
+  }
+
+  /* the second book starts halfway through, so the two don't pulse in sync */
+  .book-two::before{ animation-delay: -5s; }
+
+  @keyframes breathe{
+    from{ transform: scale(1);    opacity: 0.5; }
+    to{   transform: scale(1.12); opacity: 0.7; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .book::before{ animation: none; }
   }
 
   .book-one{ --bg: url("images/rodvitt.jpg"); }
   .book-two{ --bg: url("images/blavitt.jpg"); }
 
+  /* cover + label travel together */
   .cover-wrap{
     position: relative;
-    width: 270px;
+    width: 270px;                     /* stays the same on every screen */
   }
 
   .cover-label{
