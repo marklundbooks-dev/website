@@ -244,18 +244,52 @@
   }
 
   .book{
+    position: relative;
+    isolation: isolate;
     display: grid;
     place-items: center;
+    background-color: var(--navy);    /* shows through the see-through image */
+  }
+
+  /* the background image lives here so we can fade it on its own */
+  .book::before{
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-image: var(--bg);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    opacity: 0.6;                     /* 1 = solid, lower = more see-through */
   }
 
-  .book-one{ background-image: url("images/rodvitt.jpg"); }
-  .book-two{ background-image: url("images/blavitt.jpg"); }
+  .book-one{ --bg: url("images/rodvitt.jpg"); }
+  .book-two{ --bg: url("images/blavitt.jpg"); }
+
+  /* cover + label travel together */
+  .cover-wrap{
+    position: relative;
+    width: 270px;                     /* stays the same on every screen */
+  }
+
+  .cover-label{
+    position: absolute;
+    bottom: 100%;
+    left: 0;
+    right: 0;
+    margin-bottom: 14px;
+    text-align: center;
+    font-family: "Starlight Rune", "Cormorant Garamond", serif;
+    font-size: 2.2rem;
+    line-height: 1;
+    color: var(--cream);
+    text-shadow: 0 2px 12px rgba(0,0,0,0.6);
+  }
 
   .cover{
-    width: 270px;                     /* stays the same on every screen */
+    display: block;
+    width: 100%;
     height: auto;
     box-shadow: 0 12px 30px rgba(0,0,0,0.35);
   }
@@ -267,7 +301,7 @@
       height: auto;
     }
     .book{ height: 480px; }
-    .cover{ width: 220px; }
+    .cover-wrap{ width: 220px; }
   }
 
   /* ---------- Newsletter ---------- */
@@ -509,10 +543,16 @@
 
 <section class="books">
   <div class="book book-one">
-    <img class="cover" src="images/Honeyblade.jpg" alt="Honeyblade book cover" loading="lazy">
+    <div class="cover-wrap">
+      <div class="cover-label">Book 1</div>
+      <img class="cover" src="images/Honeyblade.jpg" alt="Honeyblade book cover" loading="lazy">
+    </div>
   </div>
   <div class="book book-two">
-    <img class="cover" src="images/Nightshade.jpg" alt="Nightshade book cover" loading="lazy">
+    <div class="cover-wrap">
+      <div class="cover-label">Book 2</div>
+      <img class="cover" src="images/Nightshade.jpg" alt="Nightshade book cover" loading="lazy">
+    </div>
   </div>
 </section>
 
