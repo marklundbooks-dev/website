@@ -162,14 +162,13 @@
   .nav-toggle.is-open .bar:nth-child(2){ opacity:0; }
   .nav-toggle.is-open .bar:nth-child(3){ transform: translateY(-7px) rotate(-45deg); }
 
-  /* ---------- HERO: background image + words popping up ---------- */
   section.hero{
-    aspect-ratio: 16 / 9;        /* same shape as the desktop image, so the borders never get cropped */
+    aspect-ratio: 16 / 9;
     display: grid;
     place-items: center;
     padding: 4vw;
     background:
-      linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)),   /* dark overlay for readability */
+      linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)),
       url("images/website%20background.jpg") center / cover no-repeat;
   }
 
@@ -193,14 +192,14 @@
   }
 
   .tagline .emph{
-    font-style: italic;   /* the font has no real italic, so the browser slants it */
+    font-style: italic;
   }
 
   .tagline .word{
     display: inline-block;
     opacity: 0;
     animation: focus-in 1.5s cubic-bezier(.33,0,.2,1) both;
-    /* --i = word number, --l = line number (adds a pause between lines) */
+   
     animation-delay: calc(0.5s + var(--i) * 0.45s + var(--l) * 0.9s);
   }
 
@@ -217,7 +216,7 @@
     }
   }
 
-  /* People who prefer less motion just see the words straight away */
+  
   @media (prefers-reduced-motion: reduce){
     .tagline .word{
       animation: none;
@@ -229,18 +228,18 @@
 
   @media (max-width: 768px){
     section.hero{
-      aspect-ratio: 9 / 16;      /* same shape as the phone image */
+      aspect-ratio: 9 / 16;      
       background:
         linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)),
         url("images/background%20phone.jpg") center / cover no-repeat;
     }
   }
 
-  /* ---------- BOOKS: two backgrounds, covers stay the same size ---------- */
+  
   .books{
     display: grid;
-    grid-template-columns: 1fr 1fr;   /* two equal halves */
-    height: 590px;                    /* fixed height: the backgrounds zoom/crop, the covers don't */
+    grid-template-columns: 1fr 1fr;
+    height: 590px;
   }
 
   .book{
@@ -248,10 +247,9 @@
     isolation: isolate;
     display: grid;
     place-items: center;
-    background-color: var(--navy);    /* shows through the see-through image */
+    background-color: var(--navy);
   }
 
-  /* the background image lives here so we can fade it on its own */
   .book::before{
     content: "";
     position: absolute;
@@ -261,16 +259,15 @@
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    opacity: 0.6;                     /* 1 = solid, lower = more see-through */
+    opacity: 0.6;
   }
 
   .book-one{ --bg: url("images/rodvitt.jpg"); }
   .book-two{ --bg: url("images/blavitt.jpg"); }
 
-  /* cover + label travel together */
   .cover-wrap{
     position: relative;
-    width: 270px;                     /* stays the same on every screen */
+    width: 270px;
   }
 
   .cover-label{
