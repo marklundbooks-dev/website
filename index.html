@@ -39,12 +39,14 @@
 
   a{ color:inherit; text-decoration:none; }
 
+  /* ---------- NAV (now centred) ---------- */
   header.nav{
     background: var(--navy);
     color: var(--cream);
     display:flex;
     align-items:center;
-    justify-content:space-between;
+    justify-content:center;      /* was space-between */
+    gap: clamp(40px, 6vw, 90px); /* space between logo and links */
     padding: 22px 5vw;
     position: relative;
     z-index: 10;
@@ -496,7 +498,8 @@
   }
 
   @media (max-width: 880px){
-    header.nav{ position:relative; }
+    /* on mobile: logo left, hamburger right */
+    header.nav{ position:relative; justify-content:space-between; }
 
     .nav-toggle{ display:flex; }
 
@@ -539,6 +542,67 @@
 
   @media (max-width: 480px){
     nav.links{ font-size: 0.8rem; gap: 12px 16px; }
+  }
+
+  /* =====================================================
+     LIGHT THEME  (applied when <body class="light">)
+     Tweak the colours in the first block to play around.
+     ===================================================== */
+  body.light{
+    --navy: #e9e0d0;        /* warm parchment instead of dark navy */
+    --navy-light: #f3ece0;  /* dropdown background */
+    --cream-dim: #1a1610cc;
+    --gold: #9a6a22;        /* deeper gold so it reads on light */
+    --line: rgba(26,22,16,0.18);
+  }
+
+  /* things that used cream as TEXT on the dark navy */
+  body.light header.nav,
+  body.light footer,
+  body.light section.contact{ color: var(--ink); }
+  body.light nav.links a.active,
+  body.light .nav-dropdown .nav-label.active{ border-color: var(--ink); }
+  body.light .nav-toggle .bar{ background: var(--ink); }
+
+  /* hardcoded cream strokes in the SVG icons */
+  body.light .brand svg circle{ stroke: var(--ink); }
+  body.light .brand svg text{ fill: var(--ink); }
+  body.light .social-row svg{ stroke: var(--ink); }
+
+  /* hero: soft light wash instead of a dark one */
+  body.light section.hero::after{ background: #f4ede2; opacity: 0.35; }
+  body.light .tagline{
+    color: var(--ink);
+    text-shadow: 0 2px 18px rgba(244,237,226,0.8);
+  }
+
+  /* book labels: dark text with a light outline */
+  body.light .cover-label{
+    color: var(--ink);
+    -webkit-text-stroke: 5px var(--cream);
+    text-shadow: none;
+  }
+  body.light .cover{ box-shadow: 0 12px 30px rgba(60,40,20,0.25); }
+
+  body.light nav.links{ box-shadow: 0 16px 28px rgba(60,40,20,0.15); }
+
+  /* small preview button – delete this + the script at the bottom when you've decided */
+  .theme-switch{
+    position: fixed;
+    right: 18px;
+    bottom: 18px;
+    z-index: 100;
+    background: var(--ink);
+    color: var(--cream);
+    border: none;
+    padding: 10px 16px;
+    font-family: 'EB Garamond', serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border-radius: 2px;
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.3);
   }
 </style>
 </head>
@@ -659,6 +723,8 @@
   </nav>
 </footer>
 
+<button class="theme-switch" id="themeSwitch" type="button">Try light theme</button>
+
 <script>
   const navToggle = document.getElementById('navToggle');
   const navLinks = document.getElementById('navLinks');
@@ -675,6 +741,13 @@
       navToggle.classList.remove('is-open');
       navToggle.setAttribute('aria-expanded', 'false');
     });
+  });
+
+  // Theme preview toggle (remove together with the button + .theme-switch CSS when done)
+  const themeSwitch = document.getElementById('themeSwitch');
+  themeSwitch.addEventListener('click', () => {
+    const isLight = document.body.classList.toggle('light');
+    themeSwitch.textContent = isLight ? 'Try dark theme' : 'Try light theme';
   });
 
   const newsletterForm = document.getElementById('newsletter-form');
