@@ -38,17 +38,16 @@
   }
 
   a{ color:inherit; text-decoration:none; }
-
-  /* ---------- NAV (now centred) ---------- */
+	
   header.nav{
     background: var(--navy);
     color: var(--cream);
     display:flex;
     align-items:center;
-    justify-content:center;      /* was space-between */
-    gap: clamp(40px, 6vw, 90px); /* space between logo and links */
+    justify-content:center;
+    gap: clamp(40px, 6vw, 90px);
     padding: 22px 5vw;
-    position: sticky;   /* locks the menu to the top while scrolling */
+    position: sticky;
     top: 0;
     z-index: 100;
     box-shadow: 0 2px 14px rgba(0,0,0,0.25);
