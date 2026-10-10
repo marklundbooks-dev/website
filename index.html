@@ -48,8 +48,10 @@
     justify-content:center;      /* was space-between */
     gap: clamp(40px, 6vw, 90px); /* space between logo and links */
     padding: 22px 5vw;
-    position: relative;
-    z-index: 10;
+    position: sticky;   /* locks the menu to the top while scrolling */
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 14px rgba(0,0,0,0.25);
   }
 
   .brand{
@@ -499,7 +501,7 @@
 
   @media (max-width: 880px){
     /* on mobile: logo left, hamburger right */
-    header.nav{ position:relative; justify-content:space-between; }
+    header.nav{ position:sticky; top:0; justify-content:space-between; }
 
     .nav-toggle{ display:flex; }
 
